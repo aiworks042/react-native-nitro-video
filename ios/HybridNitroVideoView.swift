@@ -21,7 +21,7 @@ class HybridNitroVideoView: HybridNitroVideoViewSpec {
   private var statusObserver: NSKeyValueObservation?
   private var itemDidPlayToEndObserver: NSObjectProtocol?
   private var isLoaded = false
-  private var lastLoadedSource = ""
+  private var appliedSource = ""
 
   // Properties
   var source: String = "" {
@@ -64,6 +64,7 @@ class HybridNitroVideoView: HybridNitroVideoViewSpec {
   public override init() {
     super.init()
     updateResizeMode()
+    configureAudioSession()
   }
 
   deinit {
@@ -81,12 +82,20 @@ class HybridNitroVideoView: HybridNitroVideoViewSpec {
   }
 
   func seek(position: Double) throws {
-    let targetTime = CMTime(seconds: position, preferredTimescale: 600)
+    let targetTime = CMTime(seconds: max(0, position), preferredTimescale: 600)
     player?.seek(to: targetTime, toleranceBefore: .zero, toleranceAfter: .zero)
   }
 
   func onDropView() {
     cleanUpPlayer()
+  }
+
+  private func configureAudioSession() {
+    do {
+      try AVAudioSession.sharedInstance().setCategory(.playback, mode: .moviePlayback, options: [.mixWithOthers])
+    } catch {
+      // Non-fatal if audio session is locked by another active recorder
+    }
   }
 
   private func cleanUpPlayer() {
@@ -104,7 +113,7 @@ class HybridNitroVideoView: HybridNitroVideoViewSpec {
     player = nil
     view.playerLayer.player = nil
     isLoaded = false
-    lastLoadedSource = ""
+    appliedSource = ""
   }
 
   private func updateResizeMode() {
@@ -129,17 +138,24 @@ class HybridNitroVideoView: HybridNitroVideoViewSpec {
   private func checkAndLoadSource() {
     let trimmed = source.trimmingCharacters(in: .whitespacesAndNewlines)
     guard !trimmed.isEmpty else { return }
-    guard trimmed != lastLoadedSource || !isLoaded else { return }
+    guard trimmed != appliedSource else { return }
 
     cleanUpPlayer()
-    lastLoadedSource = trimmed
+    appliedSource = trimmed
 
-    guard let url = URL(string: trimmed) else {
+    let url: URL?
+    if trimmed.hasPrefix("/") && !trimmed.hasPrefix("file://") {
+      url = URL(fileURLWithPath: trimmed)
+    } else {
+      url = URL(string: trimmed)
+    }
+
+    guard let validUrl = url else {
       onError?("Invalid video URL: \(trimmed)")
       return
     }
 
-    let playerItem = AVPlayerItem(url: url)
+    let playerItem = AVPlayerItem(url: validUrl)
     let newPlayer = AVPlayer(playerItem: playerItem)
     newPlayer.isMuted = muted ?? false
     newPlayer.volume = Float(volume ?? 1.0)
