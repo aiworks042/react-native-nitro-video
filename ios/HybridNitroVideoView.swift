@@ -144,7 +144,7 @@ class HybridNitroVideoView: HybridNitroVideoViewSpec {
     newPlayer.isMuted = muted ?? false
     newPlayer.volume = Float(volume ?? 1.0)
     self.player = newPlayer
-    self.containerView.playerLayer.player = newPlayer
+    self.view.playerLayer.player = newPlayer
 
     statusObserver = playerItem.observe(\.status, options: [.new]) { [weak self] item, _ in
       guard let self = self else { return }
