@@ -66,7 +66,7 @@ class NitroVideoPlaybackService : MediaSessionService() {
 
     fun registerPlayer(videoPlayer: HybridVideoPlayer) {
         mainHandler.post {
-            val player = videoPlayer.exoPlayer
+            val player = videoPlayer.exoPlayer ?: return@post
             if (mediaSessions[player] != null) return@post
 
             val mediaSession = MediaSession.Builder(this@NitroVideoPlaybackService, player)

@@ -96,8 +96,8 @@ class HybridVideoPlayer : HybridVideoPlayerSpec(), IntervalUpdateEmitter {
 
     private val mainHandler = Handler(Looper.getMainLooper())
     private var _exoPlayer: ExoPlayer? = null
-    val exoPlayer: ExoPlayer
-        get() = _exoPlayer ?: throw IllegalStateException("Player has been released")
+    val exoPlayer: ExoPlayer?
+        get() = _exoPlayer
 
     var tracksHelper: VideoPlayerTracksHelper? = null
         private set
@@ -223,7 +223,7 @@ class HybridVideoPlayer : HybridVideoPlayerSpec(), IntervalUpdateEmitter {
     init {
         NitroVideoPlayerRegistry.register(id.toInt(), this)
         VideoManager.registerVideoPlayer(this)
-        mainHandler.post { buildPlayer() }
+        buildPlayer()
     }
 
     private fun buildPlayer() {
@@ -239,6 +239,7 @@ class HybridVideoPlayer : HybridVideoPlayerSpec(), IntervalUpdateEmitter {
             .build()
 
         val player = ExoPlayer.Builder(context, renderersFactory)
+            .setLooper(Looper.getMainLooper())
             .setTrackSelector(trackSelector)
             .setLoadControl(loadControl)
             .setAudioAttributes(audioAttributes, false)

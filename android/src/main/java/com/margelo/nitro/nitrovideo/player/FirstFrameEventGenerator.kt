@@ -38,7 +38,7 @@ internal class FirstFrameEventGenerator(
     init {
         videoPlayer.addListener(this)
         mainHandler.post {
-            videoPlayer.exoPlayer.addListener(this@FirstFrameEventGenerator)
+            videoPlayer.exoPlayer?.addListener(this@FirstFrameEventGenerator)
         }
     }
 

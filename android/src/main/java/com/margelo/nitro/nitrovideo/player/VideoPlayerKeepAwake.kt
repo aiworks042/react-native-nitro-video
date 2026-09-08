@@ -40,7 +40,7 @@ class VideoPlayerKeepAwake(player: HybridVideoPlayer, enableOnInit: Boolean = tr
             val player = this@VideoPlayerKeepAwake.videoPlayer.get() ?: return@post
             val listener = createPlayerListener()
             this@VideoPlayerKeepAwake.playerListener = listener
-            player.exoPlayer.addListener(listener)
+            player.exoPlayer?.addListener(listener)
             VideoManager.requestKeepAwake(player)
         }
     }
@@ -49,7 +49,7 @@ class VideoPlayerKeepAwake(player: HybridVideoPlayer, enableOnInit: Boolean = tr
         mainHandler.post {
             val player = this@VideoPlayerKeepAwake.videoPlayer.get() ?: return@post
             val listener = playerListener ?: return@post
-            player.exoPlayer.removeListener(listener)
+            player.exoPlayer?.removeListener(listener)
             this@VideoPlayerKeepAwake.playerListener = null
             VideoManager.releaseKeepAwake(player)
         }
@@ -70,7 +70,7 @@ class VideoPlayerKeepAwake(player: HybridVideoPlayer, enableOnInit: Boolean = tr
                 val player = this@VideoPlayerKeepAwake.videoPlayer.get() ?: return
                 when (playbackState) {
                     Player.STATE_READY, Player.STATE_BUFFERING -> {
-                        if (player.exoPlayer.playWhenReady) {
+                        if (player.exoPlayer?.playWhenReady == true) {
                             VideoManager.requestKeepAwake(player)
                         }
                     }

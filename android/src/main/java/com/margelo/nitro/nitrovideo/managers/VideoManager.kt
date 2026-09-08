@@ -100,7 +100,9 @@ object VideoManager {
     fun onVideoPlayerDetachedFromView(videoPlayer: HybridVideoPlayer, videoView: HybridNitroVideoView) {
         videoPlayersToVideoViews[videoPlayer]?.remove(videoView)
         if (videoPlayersToVideoViews[videoPlayer].isNullOrEmpty()) {
-            videoPlayer.serviceConnection?.playbackServiceBinder?.service?.unregisterPlayer(videoPlayer.exoPlayer)
+            videoPlayer.exoPlayer?.let { exo ->
+                videoPlayer.serviceConnection?.playbackServiceBinder?.service?.unregisterPlayer(exo)
+            }
         }
     }
 
