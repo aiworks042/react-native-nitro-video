@@ -33,8 +33,8 @@ class HybridNitroVideoViewManager : SimpleViewManager<PlayerView>() {
     }
 
     @ReactProp(name = "playerId")
-    fun setPlayerId(view: PlayerView, playerId: Double?) {
-        viewMap[view]?.playerId = playerId
+    fun setPlayerId(view: PlayerView, playerId: Int?) {
+        viewMap[view]?.playerId = playerId?.toDouble()
     }
 
     @ReactProp(name = "nativeControls")
