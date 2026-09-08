@@ -4,7 +4,6 @@ import androidx.annotation.OptIn
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.ui.PlayerView
 import com.facebook.react.bridge.ReadableArray
-import com.facebook.react.common.MapBuilder
 import com.facebook.react.uimanager.SimpleViewManager
 import com.facebook.react.uimanager.ThemedReactContext
 import com.facebook.react.uimanager.annotations.ReactProp
@@ -78,14 +77,13 @@ class HybridNitroVideoViewManager : SimpleViewManager<PlayerView>() {
     }
 
     override fun getExportedCustomDirectEventTypeConstants(): MutableMap<String, Any>? {
-        return MapBuilder.builder<String, Any>()
-            .put("onPictureInPictureStart", MapBuilder.of("registrationName", "onPictureInPictureStart"))
-            .put("onPictureInPictureStop", MapBuilder.of("registrationName", "onPictureInPictureStop"))
-            .put("onFullscreenEnter", MapBuilder.of("registrationName", "onFullscreenEnter"))
-            .put("onFullscreenExit", MapBuilder.of("registrationName", "onFullscreenExit"))
-            .put("onFirstFrameRender", MapBuilder.of("registrationName", "onFirstFrameRender"))
-            .build()
-            .toMutableMap()
+        return mutableMapOf(
+            "onPictureInPictureStart" to mapOf("registrationName" to "onPictureInPictureStart"),
+            "onPictureInPictureStop" to mapOf("registrationName" to "onPictureInPictureStop"),
+            "onFullscreenEnter" to mapOf("registrationName" to "onFullscreenEnter"),
+            "onFullscreenExit" to mapOf("registrationName" to "onFullscreenExit"),
+            "onFirstFrameRender" to mapOf("registrationName" to "onFirstFrameRender")
+        )
     }
 
     override fun receiveCommand(root: PlayerView, commandId: String, args: ReadableArray?) {
