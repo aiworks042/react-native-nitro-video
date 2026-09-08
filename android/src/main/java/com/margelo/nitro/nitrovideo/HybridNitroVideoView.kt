@@ -1,4 +1,4 @@
-package com.margelo.nitro.nitrovideo
+﻿package com.margelo.nitro.nitrovideo
 
 import android.net.Uri
 import android.os.Handler
@@ -14,6 +14,7 @@ import androidx.media3.common.C
 import androidx.media3.common.MediaItem
 import androidx.media3.common.PlaybackException
 import androidx.media3.common.Player
+import androidx.media3.common.VideoSize
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.ui.AspectRatioFrameLayout
@@ -36,6 +37,7 @@ class HybridNitroVideoView(
   }
 
   private val mainHandler = Handler(Looper.getMainLooper())
+
   private val playerView = PlayerView(context).apply {
     useController = false
     resizeMode = AspectRatioFrameLayout.RESIZE_MODE_FIT
@@ -45,7 +47,32 @@ class HybridNitroVideoView(
     )
   }
 
-  override val view: View = playerView
+  // Intercept requestLayout() on the host FrameLayout so that Media3 AspectRatioFrameLayout
+  // can re-measure its children and preserve aspect ratio (prevents video stretching on Android Fabric)
+  private val container = object : FrameLayout(context) {
+    private val measureAndLayout = Runnable {
+      measure(
+        MeasureSpec.makeMeasureSpec(width, MeasureSpec.EXACTLY),
+        MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY)
+      )
+      layout(left, top, right, bottom)
+    }
+
+    override fun requestLayout() {
+      super.requestLayout()
+      post(measureAndLayout)
+    }
+  }.apply {
+    addView(
+      playerView,
+      FrameLayout.LayoutParams(
+        ViewGroup.LayoutParams.MATCH_PARENT,
+        ViewGroup.LayoutParams.MATCH_PARENT
+      )
+    )
+  }
+
+  override val view: View = container
 
   private var player: ExoPlayer? = null
   private var isLoaded = false
@@ -131,8 +158,11 @@ class HybridNitroVideoView(
 
   override fun seek(position: Double) {
     mainHandler.post {
+      val p = player ?: return@post
       val positionMs = (position * 1000).toLong().coerceAtLeast(0L)
-      player?.seekTo(positionMs)
+      p.seekTo(positionMs)
+      val durationSec = (p.duration.coerceAtLeast(0L)).toDouble() / 1000.0
+      onProgress?.invoke(position, durationSec)
     }
   }
 
@@ -141,6 +171,7 @@ class HybridNitroVideoView(
     super.afterUpdate()
     mainHandler.post {
       applyAllProps()
+      container.requestLayout()
     }
   }
 
@@ -217,6 +248,14 @@ class HybridNitroVideoView(
         playWhenReady = !(paused ?: false) && !isHostPaused
 
         addListener(object : Player.Listener {
+          override fun onVideoSizeChanged(videoSize: VideoSize) {
+            if (videoSize.width > 0 && videoSize.height > 0) {
+              mainHandler.post {
+                container.requestLayout()
+              }
+            }
+          }
+
           override fun onPlaybackStateChanged(playbackState: Int) {
             when (playbackState) {
               Player.STATE_READY -> {
@@ -280,6 +319,7 @@ class HybridNitroVideoView(
       ResizeMode.STRETCH -> AspectRatioFrameLayout.RESIZE_MODE_FILL
       null -> AspectRatioFrameLayout.RESIZE_MODE_FIT
     }
+    container.requestLayout()
   }
 
   private fun updateVolume() {

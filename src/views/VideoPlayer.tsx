@@ -1,4 +1,4 @@
-﻿import React, { useMemo } from 'react'
+﻿import React, { useMemo, forwardRef, useCallback } from 'react'
 import type { StyleProp, ViewStyle } from 'react-native'
 import {
   callback,
@@ -35,48 +35,66 @@ export interface VideoPlayerProps
 
 /**
  * Production-ready Nitro Video Player component for Kandid.
- * Automatically wraps event handlers with `callback(...)` to ensure
- * zero-copy C++ Fabric bridge execution without boolean conversion loss.
+ * Supports forwardRef, auto-wrapping callback(...) to prevent
+ * boolean conversion issues across C++ Fabric bridge.
  */
-export const VideoPlayerView = React.memo(function VideoPlayerView({
-  onLoad,
-  onProgress,
-  onEnd,
-  onError,
-  hybridRef,
-  ...restProps
-}: VideoPlayerProps) {
-  const wrappedOnLoad = useMemo(
-    () => (onLoad ? callback(onLoad) : undefined),
-    [onLoad]
-  )
-  const wrappedOnProgress = useMemo(
-    () => (onProgress ? callback(onProgress) : undefined),
-    [onProgress]
-  )
-  const wrappedOnEnd = useMemo(
-    () => (onEnd ? callback(onEnd) : undefined),
-    [onEnd]
-  )
-  const wrappedOnError = useMemo(
-    () => (onError ? callback(onError) : undefined),
-    [onError]
-  )
-  const wrappedHybridRef = useMemo(
-    () => (hybridRef ? callback(hybridRef) : undefined),
-    [hybridRef]
-  )
+export const VideoPlayerView = React.memo(
+  forwardRef<VideoPlayerRef, VideoPlayerProps>(function VideoPlayerView(
+    {
+      onLoad,
+      onProgress,
+      onEnd,
+      onError,
+      hybridRef,
+      ...restProps
+    }: VideoPlayerProps,
+    ref
+  ) {
+    const wrappedOnLoad = useMemo(
+      () => (onLoad ? callback(onLoad) : undefined),
+      [onLoad]
+    )
+    const wrappedOnProgress = useMemo(
+      () => (onProgress ? callback(onProgress) : undefined),
+      [onProgress]
+    )
+    const wrappedOnEnd = useMemo(
+      () => (onEnd ? callback(onEnd) : undefined),
+      [onEnd]
+    )
+    const wrappedOnError = useMemo(
+      () => (onError ? callback(onError) : undefined),
+      [onError]
+    )
 
-  return (
-    <NativeVideoView
-      {...restProps}
-      onLoad={wrappedOnLoad}
-      onProgress={wrappedOnProgress}
-      onEnd={wrappedOnEnd}
-      onError={wrappedOnError}
-      hybridRef={wrappedHybridRef}
-    />
-  )
-})
+    const handleNativeRef = useCallback(
+      (nativeRef: VideoPlayerRef) => {
+        if (typeof ref === 'function') {
+          ref(nativeRef)
+        } else if (ref && 'current' in ref) {
+          ;(ref as any).current = nativeRef
+        }
+        hybridRef?.(nativeRef)
+      },
+      [hybridRef, ref]
+    )
+
+    const wrappedHybridRef = useMemo(
+      () => callback(handleNativeRef),
+      [handleNativeRef]
+    )
+
+    return (
+      <NativeVideoView
+        {...restProps}
+        onLoad={wrappedOnLoad}
+        onProgress={wrappedOnProgress}
+        onEnd={wrappedOnEnd}
+        onError={wrappedOnError}
+        hybridRef={wrappedHybridRef}
+      />
+    )
+  })
+)
 
 export const VideoPlayer = VideoPlayerView
