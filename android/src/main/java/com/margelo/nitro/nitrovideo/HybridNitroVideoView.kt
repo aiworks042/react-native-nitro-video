@@ -35,7 +35,7 @@ import com.margelo.nitro.nitrovideo.records.PiPParams
 import com.margelo.nitro.nitrovideo.records.SubtitleTrack
 import com.margelo.nitro.nitrovideo.records.VideoSource
 import com.margelo.nitro.nitrovideo.records.VideoTrack
-import com.margelo.nitro.nitrovideo.utils.PictureInPictureUtils
+import com.margelo.nitro.nitrovideo.utils.calculatePiPAspectRatio
 import com.margelo.nitro.nitrovideo.utils.SubtitleUtils
 import com.margelo.nitro.nitrovideo.utils.calculateRectHint
 import com.margelo.nitro.nitrovideo.utils.dispatchMotionEvent
@@ -149,7 +149,7 @@ class HybridNitroVideoView : HybridNitroVideoViewSpec(), VideoPlayerListener {
         }
     }
 
-    override val view: View
+    val view: View
         get() = playerView
 
     init {
@@ -373,7 +373,7 @@ class HybridNitroVideoView : HybridNitroVideoViewSpec(), VideoPlayerListener {
         onFirstFrameRender?.invoke()
     }
 
-    override fun onDropView() {
+    fun onDropView() {
         mainHandler.post {
             VideoManager.unregisterVideoView(this)
             connectedPlayer?.removeListener(this)
@@ -393,7 +393,5 @@ private fun HybridNitroVideoView.calculateCurrentPipAspectRatio(): android.util.
         VideoContentFit.FILL -> ContentFit.FILL
         VideoContentFit.CONTAIN -> ContentFit.CONTAIN
     }
-    return PictureInPictureUtils.let {
-        calculatePiPAspectRatio(player.videoSize, view.width, view.height, fit)
-    }
+    return calculatePiPAspectRatio(player.videoSize, view.width, view.height, fit)
 }

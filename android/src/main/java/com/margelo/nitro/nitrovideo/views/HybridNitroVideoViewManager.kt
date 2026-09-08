@@ -85,6 +85,7 @@ class HybridNitroVideoViewManager : SimpleViewManager<PlayerView>() {
             .put("onFullscreenExit", MapBuilder.of("registrationName", "onFullscreenExit"))
             .put("onFirstFrameRender", MapBuilder.of("registrationName", "onFirstFrameRender"))
             .build()
+            .toMutableMap()
     }
 
     override fun receiveCommand(root: PlayerView, commandId: String, args: ReadableArray?) {

@@ -1,23 +1,8 @@
 package com.margelo.nitro.nitrovideo.records
 
-import androidx.media3.common.C
 import androidx.media3.common.MediaItem
+import com.margelo.nitro.nitrovideo.enums.DRMType
 import java.io.Serializable
-import java.util.UUID
-
-enum class DRMType(val value: String) {
-    CLEARKEY("clearkey"),
-    PLAYREADY("playready"),
-    WIDEVINE("widevine");
-
-    fun toUUID(): UUID {
-        return when (this) {
-            CLEARKEY -> C.CLEARKEY_UUID
-            PLAYREADY -> C.PLAYREADY_UUID
-            WIDEVINE -> C.WIDEVINE_UUID
-        }
-    }
-}
 
 data class DRMOptions(
     var type: DRMType = DRMType.WIDEVINE,

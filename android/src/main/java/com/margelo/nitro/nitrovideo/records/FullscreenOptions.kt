@@ -1,16 +1,7 @@
 package com.margelo.nitro.nitrovideo.records
 
+import com.margelo.nitro.nitrovideo.enums.FullscreenOrientation
 import java.io.Serializable
-
-enum class FullscreenOrientation(val value: String) {
-    DEFAULT("default"),
-    PORTRAIT("portrait"),
-    PORTRAIT_UP("portraitUp"),
-    PORTRAIT_DOWN("portraitDown"),
-    LANDSCAPE("landscape"),
-    LANDSCAPE_LEFT("landscapeLeft"),
-    LANDSCAPE_RIGHT("landscapeRight");
-}
 
 data class FullscreenOptions(
     var autoExitOnRotate: Boolean = false,

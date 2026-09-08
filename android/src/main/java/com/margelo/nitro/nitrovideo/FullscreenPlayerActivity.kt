@@ -134,7 +134,7 @@ class FullscreenPlayerActivity : Activity(), VideoManagerListener {
         hideStatusBar()
         setupFullscreenButton()
 
-        val requiresLinearPlayback = videoPlayer?.requiresLinearPlayback ?: false
+        val requiresLinearPlayback = videoView.requiresLinearPlayback
         val buttonConfig = videoView.buttonOptions.copy(showBottomBar = true)
         playerView.applyButtonOptions(buttonConfig, requiresLinearPlayback)
         playerView.setTimeBarInteractive(requiresLinearPlayback)

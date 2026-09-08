@@ -370,7 +370,7 @@ class HybridVideoPlayer : HybridVideoPlayerSpec(), IntervalUpdateEmitter {
     }
 
     override fun replaceAsync(uri: String): Promise<Unit> {
-        val promise = Promise.async<Unit>()
+        val promise = Promise<Unit>()
         mainHandler.post {
             try {
                 load(uri, false, "auto")
@@ -454,7 +454,7 @@ class HybridVideoPlayer : HybridVideoPlayerSpec(), IntervalUpdateEmitter {
         maxWidth: Double,
         maxHeight: Double
     ): Promise<Array<NitroVideoThumbnail>> {
-        val promise = Promise.async<Array<NitroVideoThumbnail>>()
+        val promise = Promise<Array<NitroVideoThumbnail>>()
         Thread {
             try {
                 val source = currentSource
@@ -467,16 +467,12 @@ class HybridVideoPlayer : HybridVideoPlayerSpec(), IntervalUpdateEmitter {
 
                 for (sec in times) {
                     val thumbResult = retriever.generateThumbnailAtTime(sec.seconds, opt)
-                    val baos = ByteArrayOutputStream()
-                    thumbResult.bitmap.compress(Bitmap.CompressFormat.JPEG, 85, baos)
-                    val base64 = Base64.encodeToString(baos.toByteArray(), Base64.NO_WRAP)
                     results.add(
                         NitroVideoThumbnail(
-                            actualTime = thumbResult.actualTime.inWholeMilliseconds.toDouble() / 1000.0,
-                            requestedTime = sec,
                             width = thumbResult.width.toDouble(),
                             height = thumbResult.height.toDouble(),
-                            uri = "data:image/jpeg;base64,$base64"
+                            requestedTime = sec,
+                            actualTime = thumbResult.actualTime.inWholeMilliseconds.toDouble() / 1000.0
                         )
                     )
                 }
