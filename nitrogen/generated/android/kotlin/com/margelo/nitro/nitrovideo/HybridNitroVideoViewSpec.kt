@@ -11,8 +11,8 @@ import androidx.annotation.Keep
 import com.facebook.jni.HybridData
 import com.facebook.proguard.annotations.DoNotStrip
 import dalvik.annotation.optimization.FastNative
+import com.margelo.nitro.core.Promise
 import com.margelo.nitro.core.HybridObject
-import com.margelo.nitro.views.HybridView
 
 /**
  * A Kotlin class representing the NitroVideoView HybridObject.
@@ -25,112 +25,142 @@ import com.margelo.nitro.views.HybridView
   "RedundantSuppression", "RedundantUnitReturnType", "SimpleRedundantLet",
   "LocalVariableName", "PropertyName", "PrivatePropertyName", "FunctionName"
 )
-abstract class HybridNitroVideoViewSpec: HybridView() {
+abstract class HybridNitroVideoViewSpec: HybridObject() {
   // Properties
   @get:DoNotStrip
   @get:Keep
   @set:DoNotStrip
   @set:Keep
-  abstract var source: String
+  abstract var playerId: Double?
   
   @get:DoNotStrip
   @get:Keep
   @set:DoNotStrip
   @set:Keep
-  abstract var paused: Boolean?
+  abstract var nativeControls: Boolean
   
   @get:DoNotStrip
   @get:Keep
   @set:DoNotStrip
   @set:Keep
-  abstract var muted: Boolean?
+  abstract var contentFit: VideoContentFit
   
   @get:DoNotStrip
   @get:Keep
   @set:DoNotStrip
   @set:Keep
-  abstract var repeat: Boolean?
+  abstract var allowsPictureInPicture: Boolean
   
   @get:DoNotStrip
   @get:Keep
   @set:DoNotStrip
   @set:Keep
-  abstract var volume: Double?
+  abstract var startsPictureInPictureAutomatically: Boolean
   
   @get:DoNotStrip
   @get:Keep
   @set:DoNotStrip
   @set:Keep
-  abstract var resizeMode: ResizeMode?
+  abstract var requiresLinearPlayback: Boolean
   
-  abstract var onLoad: ((duration: Double) -> Unit)?
+  @get:DoNotStrip
+  @get:Keep
+  @set:DoNotStrip
+  @set:Keep
+  abstract var useExoShutter: Boolean
   
-  private var onLoad_cxx: Func_void_double?
+  @get:DoNotStrip
+  @get:Keep
+  @set:DoNotStrip
+  @set:Keep
+  abstract var controllerAutoShow: Boolean
+  
+  abstract var onPictureInPictureStart: (() -> Unit)?
+  
+  private var onPictureInPictureStart_cxx: Func_void?
     @Keep
     @DoNotStrip
     get() {
-      return onLoad?.let { Func_void_double_java(it) }
+      return onPictureInPictureStart?.let { Func_void_java(it) }
     }
     @Keep
     @DoNotStrip
     set(value) {
-      onLoad = value?.let { it }
+      onPictureInPictureStart = value?.let { it }
     }
   
-  abstract var onProgress: ((currentTime: Double, duration: Double) -> Unit)?
+  abstract var onPictureInPictureStop: (() -> Unit)?
   
-  private var onProgress_cxx: Func_void_double_double?
+  private var onPictureInPictureStop_cxx: Func_void?
     @Keep
     @DoNotStrip
     get() {
-      return onProgress?.let { Func_void_double_double_java(it) }
+      return onPictureInPictureStop?.let { Func_void_java(it) }
     }
     @Keep
     @DoNotStrip
     set(value) {
-      onProgress = value?.let { it }
+      onPictureInPictureStop = value?.let { it }
     }
   
-  abstract var onEnd: (() -> Unit)?
+  abstract var onFullscreenEnter: (() -> Unit)?
   
-  private var onEnd_cxx: Func_void?
+  private var onFullscreenEnter_cxx: Func_void?
     @Keep
     @DoNotStrip
     get() {
-      return onEnd?.let { Func_void_java(it) }
+      return onFullscreenEnter?.let { Func_void_java(it) }
     }
     @Keep
     @DoNotStrip
     set(value) {
-      onEnd = value?.let { it }
+      onFullscreenEnter = value?.let { it }
     }
   
-  abstract var onError: ((error: String) -> Unit)?
+  abstract var onFullscreenExit: (() -> Unit)?
   
-  private var onError_cxx: Func_void_std__string?
+  private var onFullscreenExit_cxx: Func_void?
     @Keep
     @DoNotStrip
     get() {
-      return onError?.let { Func_void_std__string_java(it) }
+      return onFullscreenExit?.let { Func_void_java(it) }
     }
     @Keep
     @DoNotStrip
     set(value) {
-      onError = value?.let { it }
+      onFullscreenExit = value?.let { it }
+    }
+  
+  abstract var onFirstFrameRender: (() -> Unit)?
+  
+  private var onFirstFrameRender_cxx: Func_void?
+    @Keep
+    @DoNotStrip
+    get() {
+      return onFirstFrameRender?.let { Func_void_java(it) }
+    }
+    @Keep
+    @DoNotStrip
+    set(value) {
+      onFirstFrameRender = value?.let { it }
     }
 
   // Methods
   @DoNotStrip
   @Keep
-  abstract fun play(): Unit
+  abstract fun enterFullscreen(): Promise<Unit>
   
   @DoNotStrip
   @Keep
-  abstract fun pause(): Unit
+  abstract fun exitFullscreen(): Promise<Unit>
   
   @DoNotStrip
   @Keep
-  abstract fun seek(position: Double): Unit
+  abstract fun startPictureInPicture(): Promise<Unit>
+  
+  @DoNotStrip
+  @Keep
+  abstract fun stopPictureInPicture(): Promise<Unit>
 
   // Default implementation of `HybridObject.toString()`
   override fun toString(): String {

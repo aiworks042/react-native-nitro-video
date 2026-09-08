@@ -12,13 +12,13 @@
 // Forward declaration of `HybridNitroVideoViewSpec_cxx` to properly resolve imports.
 namespace NitroVideo { class HybridNitroVideoViewSpec_cxx; }
 
-// Forward declaration of `ResizeMode` to properly resolve imports.
-namespace margelo::nitro::nitrovideo { enum class ResizeMode; }
+// Forward declaration of `VideoContentFit` to properly resolve imports.
+namespace margelo::nitro::nitrovideo { enum class VideoContentFit; }
 
-#include <string>
 #include <optional>
-#include "ResizeMode.hpp"
+#include "VideoContentFit.hpp"
 #include <functional>
+#include <NitroModules/Promise.hpp>
 
 #include "NitroVideo-Swift-Cxx-Umbrella.hpp"
 
@@ -66,96 +66,125 @@ namespace margelo::nitro::nitrovideo {
 
   public:
     // Properties
-    inline std::string getSource() noexcept override {
-      auto __result = _swiftPart.getSource();
+    inline std::optional<double> getPlayerId() noexcept override {
+      auto __result = _swiftPart.getPlayerId();
       return __result;
     }
-    inline void setSource(const std::string& source) noexcept override {
-      _swiftPart.setSource(source);
+    inline void setPlayerId(std::optional<double> playerId) noexcept override {
+      _swiftPart.setPlayerId(playerId);
     }
-    inline std::optional<bool> getPaused() noexcept override {
-      auto __result = _swiftPart.getPaused();
+    inline bool getNativeControls() noexcept override {
+      return _swiftPart.getNativeControls();
+    }
+    inline void setNativeControls(bool nativeControls) noexcept override {
+      _swiftPart.setNativeControls(std::forward<decltype(nativeControls)>(nativeControls));
+    }
+    inline VideoContentFit getContentFit() noexcept override {
+      auto __result = _swiftPart.getContentFit();
+      return static_cast<VideoContentFit>(__result);
+    }
+    inline void setContentFit(VideoContentFit contentFit) noexcept override {
+      _swiftPart.setContentFit(static_cast<int>(contentFit));
+    }
+    inline bool getAllowsPictureInPicture() noexcept override {
+      return _swiftPart.getAllowsPictureInPicture();
+    }
+    inline void setAllowsPictureInPicture(bool allowsPictureInPicture) noexcept override {
+      _swiftPart.setAllowsPictureInPicture(std::forward<decltype(allowsPictureInPicture)>(allowsPictureInPicture));
+    }
+    inline bool getStartsPictureInPictureAutomatically() noexcept override {
+      return _swiftPart.getStartsPictureInPictureAutomatically();
+    }
+    inline void setStartsPictureInPictureAutomatically(bool startsPictureInPictureAutomatically) noexcept override {
+      _swiftPart.setStartsPictureInPictureAutomatically(std::forward<decltype(startsPictureInPictureAutomatically)>(startsPictureInPictureAutomatically));
+    }
+    inline bool getRequiresLinearPlayback() noexcept override {
+      return _swiftPart.getRequiresLinearPlayback();
+    }
+    inline void setRequiresLinearPlayback(bool requiresLinearPlayback) noexcept override {
+      _swiftPart.setRequiresLinearPlayback(std::forward<decltype(requiresLinearPlayback)>(requiresLinearPlayback));
+    }
+    inline bool getUseExoShutter() noexcept override {
+      return _swiftPart.getUseExoShutter();
+    }
+    inline void setUseExoShutter(bool useExoShutter) noexcept override {
+      _swiftPart.setUseExoShutter(std::forward<decltype(useExoShutter)>(useExoShutter));
+    }
+    inline bool getControllerAutoShow() noexcept override {
+      return _swiftPart.getControllerAutoShow();
+    }
+    inline void setControllerAutoShow(bool controllerAutoShow) noexcept override {
+      _swiftPart.setControllerAutoShow(std::forward<decltype(controllerAutoShow)>(controllerAutoShow));
+    }
+    inline std::optional<std::function<void()>> getOnPictureInPictureStart() noexcept override {
+      auto __result = _swiftPart.getOnPictureInPictureStart();
       return __result;
     }
-    inline void setPaused(std::optional<bool> paused) noexcept override {
-      _swiftPart.setPaused(paused);
+    inline void setOnPictureInPictureStart(const std::optional<std::function<void()>>& onPictureInPictureStart) noexcept override {
+      _swiftPart.setOnPictureInPictureStart(onPictureInPictureStart);
     }
-    inline std::optional<bool> getMuted() noexcept override {
-      auto __result = _swiftPart.getMuted();
+    inline std::optional<std::function<void()>> getOnPictureInPictureStop() noexcept override {
+      auto __result = _swiftPart.getOnPictureInPictureStop();
       return __result;
     }
-    inline void setMuted(std::optional<bool> muted) noexcept override {
-      _swiftPart.setMuted(muted);
+    inline void setOnPictureInPictureStop(const std::optional<std::function<void()>>& onPictureInPictureStop) noexcept override {
+      _swiftPart.setOnPictureInPictureStop(onPictureInPictureStop);
     }
-    inline std::optional<bool> getRepeat() noexcept override {
-      auto __result = _swiftPart.getRepeat();
+    inline std::optional<std::function<void()>> getOnFullscreenEnter() noexcept override {
+      auto __result = _swiftPart.getOnFullscreenEnter();
       return __result;
     }
-    inline void setRepeat(std::optional<bool> repeat) noexcept override {
-      _swiftPart.setRepeat(repeat);
+    inline void setOnFullscreenEnter(const std::optional<std::function<void()>>& onFullscreenEnter) noexcept override {
+      _swiftPart.setOnFullscreenEnter(onFullscreenEnter);
     }
-    inline std::optional<double> getVolume() noexcept override {
-      auto __result = _swiftPart.getVolume();
+    inline std::optional<std::function<void()>> getOnFullscreenExit() noexcept override {
+      auto __result = _swiftPart.getOnFullscreenExit();
       return __result;
     }
-    inline void setVolume(std::optional<double> volume) noexcept override {
-      _swiftPart.setVolume(volume);
+    inline void setOnFullscreenExit(const std::optional<std::function<void()>>& onFullscreenExit) noexcept override {
+      _swiftPart.setOnFullscreenExit(onFullscreenExit);
     }
-    inline std::optional<ResizeMode> getResizeMode() noexcept override {
-      auto __result = _swiftPart.getResizeMode();
+    inline std::optional<std::function<void()>> getOnFirstFrameRender() noexcept override {
+      auto __result = _swiftPart.getOnFirstFrameRender();
       return __result;
     }
-    inline void setResizeMode(std::optional<ResizeMode> resizeMode) noexcept override {
-      _swiftPart.setResizeMode(resizeMode);
-    }
-    inline std::optional<std::function<void(double /* duration */)>> getOnLoad() noexcept override {
-      auto __result = _swiftPart.getOnLoad();
-      return __result;
-    }
-    inline void setOnLoad(const std::optional<std::function<void(double /* duration */)>>& onLoad) noexcept override {
-      _swiftPart.setOnLoad(onLoad);
-    }
-    inline std::optional<std::function<void(double /* currentTime */, double /* duration */)>> getOnProgress() noexcept override {
-      auto __result = _swiftPart.getOnProgress();
-      return __result;
-    }
-    inline void setOnProgress(const std::optional<std::function<void(double /* currentTime */, double /* duration */)>>& onProgress) noexcept override {
-      _swiftPart.setOnProgress(onProgress);
-    }
-    inline std::optional<std::function<void()>> getOnEnd() noexcept override {
-      auto __result = _swiftPart.getOnEnd();
-      return __result;
-    }
-    inline void setOnEnd(const std::optional<std::function<void()>>& onEnd) noexcept override {
-      _swiftPart.setOnEnd(onEnd);
-    }
-    inline std::optional<std::function<void(const std::string& /* error */)>> getOnError() noexcept override {
-      auto __result = _swiftPart.getOnError();
-      return __result;
-    }
-    inline void setOnError(const std::optional<std::function<void(const std::string& /* error */)>>& onError) noexcept override {
-      _swiftPart.setOnError(onError);
+    inline void setOnFirstFrameRender(const std::optional<std::function<void()>>& onFirstFrameRender) noexcept override {
+      _swiftPart.setOnFirstFrameRender(onFirstFrameRender);
     }
 
   public:
     // Methods
-    inline void play() override {
-      auto __result = _swiftPart.play();
+    inline std::shared_ptr<Promise<void>> enterFullscreen() override {
+      auto __result = _swiftPart.enterFullscreen();
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());
       }
+      auto __value = std::move(__result.value());
+      return __value;
     }
-    inline void pause() override {
-      auto __result = _swiftPart.pause();
+    inline std::shared_ptr<Promise<void>> exitFullscreen() override {
+      auto __result = _swiftPart.exitFullscreen();
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());
       }
+      auto __value = std::move(__result.value());
+      return __value;
     }
-    inline void seek(double position) override {
-      auto __result = _swiftPart.seek(std::forward<decltype(position)>(position));
+    inline std::shared_ptr<Promise<void>> startPictureInPicture() override {
+      auto __result = _swiftPart.startPictureInPicture();
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());
       }
+      auto __value = std::move(__result.value());
+      return __value;
+    }
+    inline std::shared_ptr<Promise<void>> stopPictureInPicture() override {
+      auto __result = _swiftPart.stopPictureInPicture();
+      if (__result.hasError()) [[unlikely]] {
+        std::rethrow_exception(__result.error());
+      }
+      auto __value = std::move(__result.value());
+      return __value;
     }
 
   private:

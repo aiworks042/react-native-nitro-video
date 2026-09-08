@@ -11,6 +11,8 @@
 #import <type_traits>
 
 #include "HybridNitroVideoViewSpecSwift.hpp"
+#include "HybridVideoPlayerSpecSwift.hpp"
+#include "HybridVideoModuleSpecSwift.hpp"
 
 @interface NitroVideoAutolinking : NSObject
 @end
@@ -25,6 +27,20 @@
     "NitroVideoView",
     []() -> std::shared_ptr<HybridObject> {
       std::shared_ptr<HybridNitroVideoViewSpec> hybridObject = NitroVideo::NitroVideoAutolinking::createNitroVideoView();
+      return hybridObject;
+    }
+  );
+  HybridObjectRegistry::registerHybridObjectConstructor(
+    "VideoPlayer",
+    []() -> std::shared_ptr<HybridObject> {
+      std::shared_ptr<HybridVideoPlayerSpec> hybridObject = NitroVideo::NitroVideoAutolinking::createVideoPlayer();
+      return hybridObject;
+    }
+  );
+  HybridObjectRegistry::registerHybridObjectConstructor(
+    "VideoModule",
+    []() -> std::shared_ptr<HybridObject> {
+      std::shared_ptr<HybridVideoModuleSpec> hybridObject = NitroVideo::NitroVideoAutolinking::createVideoModule();
       return hybridObject;
     }
   );

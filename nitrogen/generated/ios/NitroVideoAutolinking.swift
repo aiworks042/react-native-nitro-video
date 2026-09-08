@@ -23,4 +23,28 @@ public final class NitroVideoAutolinking {
   public static func isNitroVideoViewRecyclable() -> Bool {
     return HybridNitroVideoView.self is any RecyclableView.Type
   }
+  
+  public static func createVideoPlayer() -> bridge.std__shared_ptr_HybridVideoPlayerSpec_ {
+    let hybridObject = HybridVideoPlayer()
+    return { () -> bridge.std__shared_ptr_HybridVideoPlayerSpec_ in
+      let __cxxWrapped = hybridObject.getCxxWrapper()
+      return __cxxWrapped.getCxxPart()
+    }()
+  }
+  
+  public static func isVideoPlayerRecyclable() -> Bool {
+    return HybridVideoPlayer.self is any RecyclableView.Type
+  }
+  
+  public static func createVideoModule() -> bridge.std__shared_ptr_HybridVideoModuleSpec_ {
+    let hybridObject = HybridVideoModule()
+    return { () -> bridge.std__shared_ptr_HybridVideoModuleSpec_ in
+      let __cxxWrapped = hybridObject.getCxxWrapper()
+      return __cxxWrapped.getCxxPart()
+    }()
+  }
+  
+  public static func isVideoModuleRecyclable() -> Bool {
+    return HybridVideoModule.self is any RecyclableView.Type
+  }
 }

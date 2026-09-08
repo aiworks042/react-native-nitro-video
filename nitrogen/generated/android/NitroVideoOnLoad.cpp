@@ -15,12 +15,11 @@
 #include <fbjni/fbjni.h>
 #include <NitroModules/HybridObjectRegistry.hpp>
 
+#include "JHybridVideoModuleSpec.hpp"
 #include "JHybridNitroVideoViewSpec.hpp"
-#include "JFunc_void_double.hpp"
-#include "JFunc_void_double_double.hpp"
 #include "JFunc_void.hpp"
+#include "JHybridVideoPlayerSpec.hpp"
 #include "JFunc_void_std__string.hpp"
-#include "views/JHybridNitroVideoViewStateUpdater.hpp"
 #include <NitroModules/DefaultConstructableObject.hpp>
 
 namespace margelo::nitro::nitrovideo {
@@ -39,24 +38,51 @@ struct JHybridNitroVideoViewSpecImpl: public jni::JavaClass<JHybridNitroVideoVie
     return javaPart->getJHybridNitroVideoViewSpec();
   }
 };
+struct JHybridVideoPlayerSpecImpl: public jni::JavaClass<JHybridVideoPlayerSpecImpl, JHybridVideoPlayerSpec::JavaPart> {
+  static constexpr auto kJavaDescriptor = "Lcom/margelo/nitro/nitrovideo/HybridVideoPlayer;";
+  static std::shared_ptr<JHybridVideoPlayerSpec> create() {
+    static const auto constructorFn = javaClassStatic()->getConstructor<JHybridVideoPlayerSpecImpl::javaobject()>();
+    jni::local_ref<JHybridVideoPlayerSpec::JavaPart> javaPart = javaClassStatic()->newObject(constructorFn);
+    return javaPart->getJHybridVideoPlayerSpec();
+  }
+};
+struct JHybridVideoModuleSpecImpl: public jni::JavaClass<JHybridVideoModuleSpecImpl, JHybridVideoModuleSpec::JavaPart> {
+  static constexpr auto kJavaDescriptor = "Lcom/margelo/nitro/nitrovideo/HybridVideoModule;";
+  static std::shared_ptr<JHybridVideoModuleSpec> create() {
+    static const auto constructorFn = javaClassStatic()->getConstructor<JHybridVideoModuleSpecImpl::javaobject()>();
+    jni::local_ref<JHybridVideoModuleSpec::JavaPart> javaPart = javaClassStatic()->newObject(constructorFn);
+    return javaPart->getJHybridVideoModuleSpec();
+  }
+};
 
 void registerAllNatives() {
   using namespace margelo::nitro;
   using namespace margelo::nitro::nitrovideo;
 
   // Register native JNI methods
+  margelo::nitro::nitrovideo::JHybridVideoModuleSpec::CxxPart::registerNatives();
   margelo::nitro::nitrovideo::JHybridNitroVideoViewSpec::CxxPart::registerNatives();
-  margelo::nitro::nitrovideo::JFunc_void_double_cxx::registerNatives();
-  margelo::nitro::nitrovideo::JFunc_void_double_double_cxx::registerNatives();
   margelo::nitro::nitrovideo::JFunc_void_cxx::registerNatives();
+  margelo::nitro::nitrovideo::JHybridVideoPlayerSpec::CxxPart::registerNatives();
   margelo::nitro::nitrovideo::JFunc_void_std__string_cxx::registerNatives();
-  margelo::nitro::nitrovideo::views::JHybridNitroVideoViewStateUpdater::registerNatives();
 
   // Register Nitro Hybrid Objects
   HybridObjectRegistry::registerHybridObjectConstructor(
     "NitroVideoView",
     []() -> std::shared_ptr<HybridObject> {
       return JHybridNitroVideoViewSpecImpl::create();
+    }
+  );
+  HybridObjectRegistry::registerHybridObjectConstructor(
+    "VideoPlayer",
+    []() -> std::shared_ptr<HybridObject> {
+      return JHybridVideoPlayerSpecImpl::create();
+    }
+  );
+  HybridObjectRegistry::registerHybridObjectConstructor(
+    "VideoModule",
+    []() -> std::shared_ptr<HybridObject> {
+      return JHybridVideoModuleSpecImpl::create();
     }
   );
 }

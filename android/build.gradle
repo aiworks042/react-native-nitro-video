@@ -142,8 +142,14 @@ dependencies {
   // AndroidX Media3 (ExoPlayer & UI)
   def media3Version = rootProject.ext.has("media3Version") ? rootProject.ext.get("media3Version") : "1.9.0"
   implementation "androidx.media3:media3-exoplayer:$media3Version"
+  implementation "androidx.media3:media3-exoplayer-hls:$media3Version"
+  implementation "androidx.media3:media3-exoplayer-dash:$media3Version"
+  implementation "androidx.media3:media3-exoplayer-smoothstreaming:$media3Version"
+  implementation "androidx.media3:media3-session:$media3Version"
+  implementation "androidx.media3:media3-datasource-okhttp:$media3Version"
   implementation "androidx.media3:media3-ui:$media3Version"
   implementation "androidx.media3:media3-common:$media3Version"
+  implementation "com.squareup.okhttp3:okhttp:4.12.0"
 }
 
 

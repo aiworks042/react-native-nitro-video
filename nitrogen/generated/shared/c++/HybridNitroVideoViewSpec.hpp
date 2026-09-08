@@ -13,13 +13,13 @@
 #error NitroModules cannot be found! Are you sure you installed NitroModules properly?
 #endif
 
-// Forward declaration of `ResizeMode` to properly resolve imports.
-namespace margelo::nitro::nitrovideo { enum class ResizeMode; }
+// Forward declaration of `VideoContentFit` to properly resolve imports.
+namespace margelo::nitro::nitrovideo { enum class VideoContentFit; }
 
-#include <string>
 #include <optional>
-#include "ResizeMode.hpp"
+#include "VideoContentFit.hpp"
 #include <functional>
+#include <NitroModules/Promise.hpp>
 
 namespace margelo::nitro::nitrovideo {
 
@@ -48,32 +48,39 @@ namespace margelo::nitro::nitrovideo {
 
     public:
       // Properties
-      virtual std::string getSource() = 0;
-      virtual void setSource(const std::string& source) = 0;
-      virtual std::optional<bool> getPaused() = 0;
-      virtual void setPaused(std::optional<bool> paused) = 0;
-      virtual std::optional<bool> getMuted() = 0;
-      virtual void setMuted(std::optional<bool> muted) = 0;
-      virtual std::optional<bool> getRepeat() = 0;
-      virtual void setRepeat(std::optional<bool> repeat) = 0;
-      virtual std::optional<double> getVolume() = 0;
-      virtual void setVolume(std::optional<double> volume) = 0;
-      virtual std::optional<ResizeMode> getResizeMode() = 0;
-      virtual void setResizeMode(std::optional<ResizeMode> resizeMode) = 0;
-      virtual std::optional<std::function<void(double /* duration */)>> getOnLoad() = 0;
-      virtual void setOnLoad(const std::optional<std::function<void(double /* duration */)>>& onLoad) = 0;
-      virtual std::optional<std::function<void(double /* currentTime */, double /* duration */)>> getOnProgress() = 0;
-      virtual void setOnProgress(const std::optional<std::function<void(double /* currentTime */, double /* duration */)>>& onProgress) = 0;
-      virtual std::optional<std::function<void()>> getOnEnd() = 0;
-      virtual void setOnEnd(const std::optional<std::function<void()>>& onEnd) = 0;
-      virtual std::optional<std::function<void(const std::string& /* error */)>> getOnError() = 0;
-      virtual void setOnError(const std::optional<std::function<void(const std::string& /* error */)>>& onError) = 0;
+      virtual std::optional<double> getPlayerId() = 0;
+      virtual void setPlayerId(std::optional<double> playerId) = 0;
+      virtual bool getNativeControls() = 0;
+      virtual void setNativeControls(bool nativeControls) = 0;
+      virtual VideoContentFit getContentFit() = 0;
+      virtual void setContentFit(VideoContentFit contentFit) = 0;
+      virtual bool getAllowsPictureInPicture() = 0;
+      virtual void setAllowsPictureInPicture(bool allowsPictureInPicture) = 0;
+      virtual bool getStartsPictureInPictureAutomatically() = 0;
+      virtual void setStartsPictureInPictureAutomatically(bool startsPictureInPictureAutomatically) = 0;
+      virtual bool getRequiresLinearPlayback() = 0;
+      virtual void setRequiresLinearPlayback(bool requiresLinearPlayback) = 0;
+      virtual bool getUseExoShutter() = 0;
+      virtual void setUseExoShutter(bool useExoShutter) = 0;
+      virtual bool getControllerAutoShow() = 0;
+      virtual void setControllerAutoShow(bool controllerAutoShow) = 0;
+      virtual std::optional<std::function<void()>> getOnPictureInPictureStart() = 0;
+      virtual void setOnPictureInPictureStart(const std::optional<std::function<void()>>& onPictureInPictureStart) = 0;
+      virtual std::optional<std::function<void()>> getOnPictureInPictureStop() = 0;
+      virtual void setOnPictureInPictureStop(const std::optional<std::function<void()>>& onPictureInPictureStop) = 0;
+      virtual std::optional<std::function<void()>> getOnFullscreenEnter() = 0;
+      virtual void setOnFullscreenEnter(const std::optional<std::function<void()>>& onFullscreenEnter) = 0;
+      virtual std::optional<std::function<void()>> getOnFullscreenExit() = 0;
+      virtual void setOnFullscreenExit(const std::optional<std::function<void()>>& onFullscreenExit) = 0;
+      virtual std::optional<std::function<void()>> getOnFirstFrameRender() = 0;
+      virtual void setOnFirstFrameRender(const std::optional<std::function<void()>>& onFirstFrameRender) = 0;
 
     public:
       // Methods
-      virtual void play() = 0;
-      virtual void pause() = 0;
-      virtual void seek(double position) = 0;
+      virtual std::shared_ptr<Promise<void>> enterFullscreen() = 0;
+      virtual std::shared_ptr<Promise<void>> exitFullscreen() = 0;
+      virtual std::shared_ptr<Promise<void>> startPictureInPicture() = 0;
+      virtual std::shared_ptr<Promise<void>> stopPictureInPicture() = 0;
 
     protected:
       // Hybrid Setup

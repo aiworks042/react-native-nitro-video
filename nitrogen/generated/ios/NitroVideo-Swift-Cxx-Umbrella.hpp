@@ -8,20 +8,43 @@
 #pragma once
 
 // Forward declarations of C++ defined types
+// Forward declaration of `AudioMixingMode` to properly resolve imports.
+namespace margelo::nitro::nitrovideo { enum class AudioMixingMode; }
 // Forward declaration of `HybridNitroVideoViewSpec` to properly resolve imports.
 namespace margelo::nitro::nitrovideo { class HybridNitroVideoViewSpec; }
-// Forward declaration of `ResizeMode` to properly resolve imports.
-namespace margelo::nitro::nitrovideo { enum class ResizeMode; }
+// Forward declaration of `HybridVideoModuleSpec` to properly resolve imports.
+namespace margelo::nitro::nitrovideo { class HybridVideoModuleSpec; }
+// Forward declaration of `HybridVideoPlayerSpec` to properly resolve imports.
+namespace margelo::nitro::nitrovideo { class HybridVideoPlayerSpec; }
+// Forward declaration of `NitroBufferOptions` to properly resolve imports.
+namespace margelo::nitro::nitrovideo { struct NitroBufferOptions; }
+// Forward declaration of `NitroScrubbingModeOptions` to properly resolve imports.
+namespace margelo::nitro::nitrovideo { struct NitroScrubbingModeOptions; }
+// Forward declaration of `NitroVideoThumbnail` to properly resolve imports.
+namespace margelo::nitro::nitrovideo { struct NitroVideoThumbnail; }
+// Forward declaration of `VideoContentFit` to properly resolve imports.
+namespace margelo::nitro::nitrovideo { enum class VideoContentFit; }
+// Forward declaration of `VideoPlayerStatus` to properly resolve imports.
+namespace margelo::nitro::nitrovideo { enum class VideoPlayerStatus; }
 
 // Include C++ defined types
+#include "AudioMixingMode.hpp"
 #include "HybridNitroVideoViewSpec.hpp"
-#include "ResizeMode.hpp"
+#include "HybridVideoModuleSpec.hpp"
+#include "HybridVideoPlayerSpec.hpp"
+#include "NitroBufferOptions.hpp"
+#include "NitroScrubbingModeOptions.hpp"
+#include "NitroVideoThumbnail.hpp"
+#include "VideoContentFit.hpp"
+#include "VideoPlayerStatus.hpp"
+#include <NitroModules/Promise.hpp>
 #include <NitroModules/Result.hpp>
 #include <exception>
 #include <functional>
 #include <memory>
 #include <optional>
 #include <string>
+#include <vector>
 
 // C++ helpers for Swift
 #include "NitroVideo-Swift-Cxx-Bridge.hpp"
@@ -35,6 +58,10 @@ namespace margelo::nitro::nitrovideo { enum class ResizeMode; }
 // Forward declarations of Swift defined types
 // Forward declaration of `HybridNitroVideoViewSpec_cxx` to properly resolve imports.
 namespace NitroVideo { class HybridNitroVideoViewSpec_cxx; }
+// Forward declaration of `HybridVideoModuleSpec_cxx` to properly resolve imports.
+namespace NitroVideo { class HybridVideoModuleSpec_cxx; }
+// Forward declaration of `HybridVideoPlayerSpec_cxx` to properly resolve imports.
+namespace NitroVideo { class HybridVideoPlayerSpec_cxx; }
 
 // Include Swift defined types
 #if __has_include("NitroVideo-Swift.h")

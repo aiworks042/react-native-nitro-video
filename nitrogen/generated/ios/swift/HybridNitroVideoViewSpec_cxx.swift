@@ -121,94 +121,11 @@ open class HybridNitroVideoViewSpec_cxx {
   }
 
   // Properties
-  public final var source: std.string {
-    @inline(__always)
-    get {
-      return std.string(self.__implementation.source)
-    }
-    @inline(__always)
-    set {
-      self.__implementation.source = String(newValue)
-    }
-  }
-  
-  public final var paused: bridge.std__optional_bool_ {
-    @inline(__always)
-    get {
-      return { () -> bridge.std__optional_bool_ in
-        if let __unwrappedValue = self.__implementation.paused {
-          return bridge.create_std__optional_bool_(__unwrappedValue)
-        } else {
-          return .init()
-        }
-      }()
-    }
-    @inline(__always)
-    set {
-      self.__implementation.paused = { () -> Bool? in
-        if bridge.has_value_std__optional_bool_(newValue) {
-          let __unwrapped = bridge.get_std__optional_bool_(newValue)
-          return __unwrapped
-        } else {
-          return nil
-        }
-      }()
-    }
-  }
-  
-  public final var muted: bridge.std__optional_bool_ {
-    @inline(__always)
-    get {
-      return { () -> bridge.std__optional_bool_ in
-        if let __unwrappedValue = self.__implementation.muted {
-          return bridge.create_std__optional_bool_(__unwrappedValue)
-        } else {
-          return .init()
-        }
-      }()
-    }
-    @inline(__always)
-    set {
-      self.__implementation.muted = { () -> Bool? in
-        if bridge.has_value_std__optional_bool_(newValue) {
-          let __unwrapped = bridge.get_std__optional_bool_(newValue)
-          return __unwrapped
-        } else {
-          return nil
-        }
-      }()
-    }
-  }
-  
-  public final var repeat: bridge.std__optional_bool_ {
-    @inline(__always)
-    get {
-      return { () -> bridge.std__optional_bool_ in
-        if let __unwrappedValue = self.__implementation.repeat {
-          return bridge.create_std__optional_bool_(__unwrappedValue)
-        } else {
-          return .init()
-        }
-      }()
-    }
-    @inline(__always)
-    set {
-      self.__implementation.repeat = { () -> Bool? in
-        if bridge.has_value_std__optional_bool_(newValue) {
-          let __unwrapped = bridge.get_std__optional_bool_(newValue)
-          return __unwrapped
-        } else {
-          return nil
-        }
-      }()
-    }
-  }
-  
-  public final var volume: bridge.std__optional_double_ {
+  public final var playerId: bridge.std__optional_double_ {
     @inline(__always)
     get {
       return { () -> bridge.std__optional_double_ in
-        if let __unwrappedValue = self.__implementation.volume {
+        if let __unwrappedValue = self.__implementation.playerId {
           return bridge.create_std__optional_double_(__unwrappedValue)
         } else {
           return .init()
@@ -217,7 +134,7 @@ open class HybridNitroVideoViewSpec_cxx {
     }
     @inline(__always)
     set {
-      self.__implementation.volume = { () -> Double? in
+      self.__implementation.playerId = { () -> Double? in
         if bridge.has_value_std__optional_double_(newValue) {
           let __unwrapped = bridge.get_std__optional_double_(newValue)
           return __unwrapped
@@ -228,92 +145,88 @@ open class HybridNitroVideoViewSpec_cxx {
     }
   }
   
-  public final var resizeMode: bridge.std__optional_ResizeMode_ {
+  public final var nativeControls: Bool {
     @inline(__always)
     get {
-      return { () -> bridge.std__optional_ResizeMode_ in
-        if let __unwrappedValue = self.__implementation.resizeMode {
-          return bridge.create_std__optional_ResizeMode_(__unwrappedValue)
-        } else {
-          return .init()
-        }
-      }()
+      return self.__implementation.nativeControls
     }
     @inline(__always)
     set {
-      self.__implementation.resizeMode = newValue.value
+      self.__implementation.nativeControls = newValue
     }
   }
   
-  public final var onLoad: bridge.std__optional_std__function_void_double____duration______ {
+  public final var contentFit: Int32 {
     @inline(__always)
     get {
-      return { () -> bridge.std__optional_std__function_void_double____duration______ in
-        if let __unwrappedValue = self.__implementation.onLoad {
-          return bridge.create_std__optional_std__function_void_double____duration______({ () -> bridge.Func_void_double in
-            let __closureWrapper = Func_void_double(__unwrappedValue)
-            return bridge.create_Func_void_double(__closureWrapper.toUnsafe())
-          }())
-        } else {
-          return .init()
-        }
-      }()
+      return self.__implementation.contentFit.rawValue
     }
     @inline(__always)
     set {
-      self.__implementation.onLoad = { () -> ((_ duration: Double) -> Void)? in
-        if bridge.has_value_std__optional_std__function_void_double____duration______(newValue) {
-          let __unwrapped = bridge.get_std__optional_std__function_void_double____duration______(newValue)
-          return { () -> (Double) -> Void in
-            let __wrappedFunction = bridge.wrap_Func_void_double(__unwrapped)
-            return { (__duration: Double) -> Void in
-              __wrappedFunction.call(__duration)
-            }
-          }()
-        } else {
-          return nil
-        }
-      }()
+      self.__implementation.contentFit = margelo.nitro.nitrovideo.VideoContentFit(rawValue: newValue)!
     }
   }
   
-  public final var onProgress: bridge.std__optional_std__function_void_double____currentTime_____double____duration______ {
+  public final var allowsPictureInPicture: Bool {
     @inline(__always)
     get {
-      return { () -> bridge.std__optional_std__function_void_double____currentTime_____double____duration______ in
-        if let __unwrappedValue = self.__implementation.onProgress {
-          return bridge.create_std__optional_std__function_void_double____currentTime_____double____duration______({ () -> bridge.Func_void_double_double in
-            let __closureWrapper = Func_void_double_double(__unwrappedValue)
-            return bridge.create_Func_void_double_double(__closureWrapper.toUnsafe())
-          }())
-        } else {
-          return .init()
-        }
-      }()
+      return self.__implementation.allowsPictureInPicture
     }
     @inline(__always)
     set {
-      self.__implementation.onProgress = { () -> ((_ currentTime: Double, _ duration: Double) -> Void)? in
-        if bridge.has_value_std__optional_std__function_void_double____currentTime_____double____duration______(newValue) {
-          let __unwrapped = bridge.get_std__optional_std__function_void_double____currentTime_____double____duration______(newValue)
-          return { () -> (Double, Double) -> Void in
-            let __wrappedFunction = bridge.wrap_Func_void_double_double(__unwrapped)
-            return { (__currentTime: Double, __duration: Double) -> Void in
-              __wrappedFunction.call(__currentTime, __duration)
-            }
-          }()
-        } else {
-          return nil
-        }
-      }()
+      self.__implementation.allowsPictureInPicture = newValue
     }
   }
   
-  public final var onEnd: bridge.std__optional_std__function_void____ {
+  public final var startsPictureInPictureAutomatically: Bool {
+    @inline(__always)
+    get {
+      return self.__implementation.startsPictureInPictureAutomatically
+    }
+    @inline(__always)
+    set {
+      self.__implementation.startsPictureInPictureAutomatically = newValue
+    }
+  }
+  
+  public final var requiresLinearPlayback: Bool {
+    @inline(__always)
+    get {
+      return self.__implementation.requiresLinearPlayback
+    }
+    @inline(__always)
+    set {
+      self.__implementation.requiresLinearPlayback = newValue
+    }
+  }
+  
+  public final var useExoShutter: Bool {
+    @inline(__always)
+    get {
+      return self.__implementation.useExoShutter
+    }
+    @inline(__always)
+    set {
+      self.__implementation.useExoShutter = newValue
+    }
+  }
+  
+  public final var controllerAutoShow: Bool {
+    @inline(__always)
+    get {
+      return self.__implementation.controllerAutoShow
+    }
+    @inline(__always)
+    set {
+      self.__implementation.controllerAutoShow = newValue
+    }
+  }
+  
+  public final var onPictureInPictureStart: bridge.std__optional_std__function_void____ {
     @inline(__always)
     get {
       return { () -> bridge.std__optional_std__function_void____ in
-        if let __unwrappedValue = self.__implementation.onEnd {
+        if let __unwrappedValue = self.__implementation.onPictureInPictureStart {
           return bridge.create_std__optional_std__function_void____({ () -> bridge.Func_void in
             let __closureWrapper = Func_void(__unwrappedValue)
             return bridge.create_Func_void(__closureWrapper.toUnsafe())
@@ -325,7 +238,7 @@ open class HybridNitroVideoViewSpec_cxx {
     }
     @inline(__always)
     set {
-      self.__implementation.onEnd = { () -> (() -> Void)? in
+      self.__implementation.onPictureInPictureStart = { () -> (() -> Void)? in
         if bridge.has_value_std__optional_std__function_void____(newValue) {
           let __unwrapped = bridge.get_std__optional_std__function_void____(newValue)
           return { () -> () -> Void in
@@ -341,14 +254,14 @@ open class HybridNitroVideoViewSpec_cxx {
     }
   }
   
-  public final var onError: bridge.std__optional_std__function_void_const_std__string_____error______ {
+  public final var onPictureInPictureStop: bridge.std__optional_std__function_void____ {
     @inline(__always)
     get {
-      return { () -> bridge.std__optional_std__function_void_const_std__string_____error______ in
-        if let __unwrappedValue = self.__implementation.onError {
-          return bridge.create_std__optional_std__function_void_const_std__string_____error______({ () -> bridge.Func_void_std__string in
-            let __closureWrapper = Func_void_std__string(__unwrappedValue)
-            return bridge.create_Func_void_std__string(__closureWrapper.toUnsafe())
+      return { () -> bridge.std__optional_std__function_void____ in
+        if let __unwrappedValue = self.__implementation.onPictureInPictureStop {
+          return bridge.create_std__optional_std__function_void____({ () -> bridge.Func_void in
+            let __closureWrapper = Func_void(__unwrappedValue)
+            return bridge.create_Func_void(__closureWrapper.toUnsafe())
           }())
         } else {
           return .init()
@@ -357,13 +270,109 @@ open class HybridNitroVideoViewSpec_cxx {
     }
     @inline(__always)
     set {
-      self.__implementation.onError = { () -> ((_ error: String) -> Void)? in
-        if bridge.has_value_std__optional_std__function_void_const_std__string_____error______(newValue) {
-          let __unwrapped = bridge.get_std__optional_std__function_void_const_std__string_____error______(newValue)
-          return { () -> (String) -> Void in
-            let __wrappedFunction = bridge.wrap_Func_void_std__string(__unwrapped)
-            return { (__error: String) -> Void in
-              __wrappedFunction.call(std.string(__error))
+      self.__implementation.onPictureInPictureStop = { () -> (() -> Void)? in
+        if bridge.has_value_std__optional_std__function_void____(newValue) {
+          let __unwrapped = bridge.get_std__optional_std__function_void____(newValue)
+          return { () -> () -> Void in
+            let __wrappedFunction = bridge.wrap_Func_void(__unwrapped)
+            return { () -> Void in
+              __wrappedFunction.call()
+            }
+          }()
+        } else {
+          return nil
+        }
+      }()
+    }
+  }
+  
+  public final var onFullscreenEnter: bridge.std__optional_std__function_void____ {
+    @inline(__always)
+    get {
+      return { () -> bridge.std__optional_std__function_void____ in
+        if let __unwrappedValue = self.__implementation.onFullscreenEnter {
+          return bridge.create_std__optional_std__function_void____({ () -> bridge.Func_void in
+            let __closureWrapper = Func_void(__unwrappedValue)
+            return bridge.create_Func_void(__closureWrapper.toUnsafe())
+          }())
+        } else {
+          return .init()
+        }
+      }()
+    }
+    @inline(__always)
+    set {
+      self.__implementation.onFullscreenEnter = { () -> (() -> Void)? in
+        if bridge.has_value_std__optional_std__function_void____(newValue) {
+          let __unwrapped = bridge.get_std__optional_std__function_void____(newValue)
+          return { () -> () -> Void in
+            let __wrappedFunction = bridge.wrap_Func_void(__unwrapped)
+            return { () -> Void in
+              __wrappedFunction.call()
+            }
+          }()
+        } else {
+          return nil
+        }
+      }()
+    }
+  }
+  
+  public final var onFullscreenExit: bridge.std__optional_std__function_void____ {
+    @inline(__always)
+    get {
+      return { () -> bridge.std__optional_std__function_void____ in
+        if let __unwrappedValue = self.__implementation.onFullscreenExit {
+          return bridge.create_std__optional_std__function_void____({ () -> bridge.Func_void in
+            let __closureWrapper = Func_void(__unwrappedValue)
+            return bridge.create_Func_void(__closureWrapper.toUnsafe())
+          }())
+        } else {
+          return .init()
+        }
+      }()
+    }
+    @inline(__always)
+    set {
+      self.__implementation.onFullscreenExit = { () -> (() -> Void)? in
+        if bridge.has_value_std__optional_std__function_void____(newValue) {
+          let __unwrapped = bridge.get_std__optional_std__function_void____(newValue)
+          return { () -> () -> Void in
+            let __wrappedFunction = bridge.wrap_Func_void(__unwrapped)
+            return { () -> Void in
+              __wrappedFunction.call()
+            }
+          }()
+        } else {
+          return nil
+        }
+      }()
+    }
+  }
+  
+  public final var onFirstFrameRender: bridge.std__optional_std__function_void____ {
+    @inline(__always)
+    get {
+      return { () -> bridge.std__optional_std__function_void____ in
+        if let __unwrappedValue = self.__implementation.onFirstFrameRender {
+          return bridge.create_std__optional_std__function_void____({ () -> bridge.Func_void in
+            let __closureWrapper = Func_void(__unwrappedValue)
+            return bridge.create_Func_void(__closureWrapper.toUnsafe())
+          }())
+        } else {
+          return .init()
+        }
+      }()
+    }
+    @inline(__always)
+    set {
+      self.__implementation.onFirstFrameRender = { () -> (() -> Void)? in
+        if bridge.has_value_std__optional_std__function_void____(newValue) {
+          let __unwrapped = bridge.get_std__optional_std__function_void____(newValue)
+          return { () -> () -> Void in
+            let __wrappedFunction = bridge.wrap_Func_void(__unwrapped)
+            return { () -> Void in
+              __wrappedFunction.call()
             }
           }()
         } else {
@@ -375,56 +384,78 @@ open class HybridNitroVideoViewSpec_cxx {
 
   // Methods
   @inline(__always)
-  public final func play() -> bridge.Result_void_ {
+  public final func enterFullscreen() -> bridge.Result_std__shared_ptr_Promise_void___ {
     do {
-      try self.__implementation.play()
-      return bridge.create_Result_void_()
+      let __result = try self.__implementation.enterFullscreen()
+      let __resultCpp = { () -> bridge.std__shared_ptr_Promise_void__ in
+        let __promise = bridge.create_std__shared_ptr_Promise_void__()
+        let __promiseHolder = bridge.wrap_std__shared_ptr_Promise_void__(__promise)
+        __result
+          .then({ __result in __promiseHolder.resolve() })
+          .catch({ __error in __promiseHolder.reject(__error.toCpp()) })
+        return __promise
+      }()
+      return bridge.create_Result_std__shared_ptr_Promise_void___(__resultCpp)
     } catch (let __error) {
       let __exceptionPtr = __error.toCpp()
-      return bridge.create_Result_void_(__exceptionPtr)
+      return bridge.create_Result_std__shared_ptr_Promise_void___(__exceptionPtr)
     }
   }
   
   @inline(__always)
-  public final func pause() -> bridge.Result_void_ {
+  public final func exitFullscreen() -> bridge.Result_std__shared_ptr_Promise_void___ {
     do {
-      try self.__implementation.pause()
-      return bridge.create_Result_void_()
+      let __result = try self.__implementation.exitFullscreen()
+      let __resultCpp = { () -> bridge.std__shared_ptr_Promise_void__ in
+        let __promise = bridge.create_std__shared_ptr_Promise_void__()
+        let __promiseHolder = bridge.wrap_std__shared_ptr_Promise_void__(__promise)
+        __result
+          .then({ __result in __promiseHolder.resolve() })
+          .catch({ __error in __promiseHolder.reject(__error.toCpp()) })
+        return __promise
+      }()
+      return bridge.create_Result_std__shared_ptr_Promise_void___(__resultCpp)
     } catch (let __error) {
       let __exceptionPtr = __error.toCpp()
-      return bridge.create_Result_void_(__exceptionPtr)
+      return bridge.create_Result_std__shared_ptr_Promise_void___(__exceptionPtr)
     }
   }
   
   @inline(__always)
-  public final func seek(position: Double) -> bridge.Result_void_ {
+  public final func startPictureInPicture() -> bridge.Result_std__shared_ptr_Promise_void___ {
     do {
-      try self.__implementation.seek(position: position)
-      return bridge.create_Result_void_()
+      let __result = try self.__implementation.startPictureInPicture()
+      let __resultCpp = { () -> bridge.std__shared_ptr_Promise_void__ in
+        let __promise = bridge.create_std__shared_ptr_Promise_void__()
+        let __promiseHolder = bridge.wrap_std__shared_ptr_Promise_void__(__promise)
+        __result
+          .then({ __result in __promiseHolder.resolve() })
+          .catch({ __error in __promiseHolder.reject(__error.toCpp()) })
+        return __promise
+      }()
+      return bridge.create_Result_std__shared_ptr_Promise_void___(__resultCpp)
     } catch (let __error) {
       let __exceptionPtr = __error.toCpp()
-      return bridge.create_Result_void_(__exceptionPtr)
+      return bridge.create_Result_std__shared_ptr_Promise_void___(__exceptionPtr)
     }
   }
   
-  public final func getView() -> UnsafeMutableRawPointer {
-    return Unmanaged.passRetained(__implementation.view).toOpaque()
-  }
-  
-  public final func beforeUpdate() {
-    __implementation.beforeUpdate()
-  }
-  
-  public final func afterUpdate() {
-    __implementation.afterUpdate()
-  }
-  
-  public final func maybePrepareForRecycle() {
-    guard let recyclable = __implementation as? any RecyclableView else { return }
-    recyclable.prepareForRecycle()
-  }
-  
-  public final func onDropView() {
-    __implementation.onDropView()
+  @inline(__always)
+  public final func stopPictureInPicture() -> bridge.Result_std__shared_ptr_Promise_void___ {
+    do {
+      let __result = try self.__implementation.stopPictureInPicture()
+      let __resultCpp = { () -> bridge.std__shared_ptr_Promise_void__ in
+        let __promise = bridge.create_std__shared_ptr_Promise_void__()
+        let __promiseHolder = bridge.wrap_std__shared_ptr_Promise_void__(__promise)
+        __result
+          .then({ __result in __promiseHolder.resolve() })
+          .catch({ __error in __promiseHolder.reject(__error.toCpp()) })
+        return __promise
+      }()
+      return bridge.create_Result_std__shared_ptr_Promise_void___(__resultCpp)
+    } catch (let __error) {
+      let __exceptionPtr = __error.toCpp()
+      return bridge.create_Result_std__shared_ptr_Promise_void___(__exceptionPtr)
+    }
   }
 }

@@ -22,6 +22,26 @@
         "language": "kotlin",
         "implementationClassName": "HybridNitroVideoView"
       }
+    },
+    "VideoPlayer": {
+      "ios": {
+        "language": "swift",
+        "implementationClassName": "HybridVideoPlayer"
+      },
+      "android": {
+        "language": "kotlin",
+        "implementationClassName": "HybridVideoPlayer"
+      }
+    },
+    "VideoModule": {
+      "ios": {
+        "language": "swift",
+        "implementationClassName": "HybridVideoModule"
+      },
+      "android": {
+        "language": "kotlin",
+        "implementationClassName": "HybridVideoModule"
+      }
     }
   },
   "ignorePaths": [

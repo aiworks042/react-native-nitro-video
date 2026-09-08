@@ -7,19 +7,18 @@
 
 #include "JHybridNitroVideoViewSpec.hpp"
 
-// Forward declaration of `ResizeMode` to properly resolve imports.
-namespace margelo::nitro::nitrovideo { enum class ResizeMode; }
+// Forward declaration of `VideoContentFit` to properly resolve imports.
+namespace margelo::nitro::nitrovideo { enum class VideoContentFit; }
 
-#include <string>
 #include <optional>
-#include "ResizeMode.hpp"
-#include "JResizeMode.hpp"
+#include "VideoContentFit.hpp"
+#include "JVideoContentFit.hpp"
 #include <functional>
-#include "JFunc_void_double.hpp"
-#include <NitroModules/JNICallable.hpp>
-#include "JFunc_void_double_double.hpp"
 #include "JFunc_void.hpp"
-#include "JFunc_void_std__string.hpp"
+#include <NitroModules/JNICallable.hpp>
+#include <NitroModules/Promise.hpp>
+#include <NitroModules/JPromise.hpp>
+#include <NitroModules/JUnit.hpp>
 
 namespace margelo::nitro::nitrovideo {
 
@@ -51,96 +50,80 @@ namespace margelo::nitro::nitrovideo {
   }
 
   // Properties
-  std::string JHybridNitroVideoViewSpec::getSource() {
-    static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<jni::JString>()>("getSource");
-    auto __result = method(_javaPart);
-    return __result->toStdString();
-  }
-  void JHybridNitroVideoViewSpec::setSource(const std::string& source) {
-    static const auto method = _javaPart->javaClassStatic()->getMethod<void(jni::alias_ref<jni::JString> /* source */)>("setSource");
-    method(_javaPart, jni::make_jstring(source));
-  }
-  std::optional<bool> JHybridNitroVideoViewSpec::getPaused() {
-    static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<jni::JBoolean>()>("getPaused");
-    auto __result = method(_javaPart);
-    return __result != nullptr ? std::make_optional(static_cast<bool>(__result->value())) : std::nullopt;
-  }
-  void JHybridNitroVideoViewSpec::setPaused(std::optional<bool> paused) {
-    static const auto method = _javaPart->javaClassStatic()->getMethod<void(jni::alias_ref<jni::JBoolean> /* paused */)>("setPaused");
-    method(_javaPart, paused.has_value() ? jni::JBoolean::valueOf(paused.value()) : nullptr);
-  }
-  std::optional<bool> JHybridNitroVideoViewSpec::getMuted() {
-    static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<jni::JBoolean>()>("getMuted");
-    auto __result = method(_javaPart);
-    return __result != nullptr ? std::make_optional(static_cast<bool>(__result->value())) : std::nullopt;
-  }
-  void JHybridNitroVideoViewSpec::setMuted(std::optional<bool> muted) {
-    static const auto method = _javaPart->javaClassStatic()->getMethod<void(jni::alias_ref<jni::JBoolean> /* muted */)>("setMuted");
-    method(_javaPart, muted.has_value() ? jni::JBoolean::valueOf(muted.value()) : nullptr);
-  }
-  std::optional<bool> JHybridNitroVideoViewSpec::getRepeat() {
-    static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<jni::JBoolean>()>("getRepeat");
-    auto __result = method(_javaPart);
-    return __result != nullptr ? std::make_optional(static_cast<bool>(__result->value())) : std::nullopt;
-  }
-  void JHybridNitroVideoViewSpec::setRepeat(std::optional<bool> repeat) {
-    static const auto method = _javaPart->javaClassStatic()->getMethod<void(jni::alias_ref<jni::JBoolean> /* repeat */)>("setRepeat");
-    method(_javaPart, repeat.has_value() ? jni::JBoolean::valueOf(repeat.value()) : nullptr);
-  }
-  std::optional<double> JHybridNitroVideoViewSpec::getVolume() {
-    static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<jni::JDouble>()>("getVolume");
+  std::optional<double> JHybridNitroVideoViewSpec::getPlayerId() {
+    static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<jni::JDouble>()>("getPlayerId");
     auto __result = method(_javaPart);
     return __result != nullptr ? std::make_optional(__result->value()) : std::nullopt;
   }
-  void JHybridNitroVideoViewSpec::setVolume(std::optional<double> volume) {
-    static const auto method = _javaPart->javaClassStatic()->getMethod<void(jni::alias_ref<jni::JDouble> /* volume */)>("setVolume");
-    method(_javaPart, volume.has_value() ? jni::JDouble::valueOf(volume.value()) : nullptr);
+  void JHybridNitroVideoViewSpec::setPlayerId(std::optional<double> playerId) {
+    static const auto method = _javaPart->javaClassStatic()->getMethod<void(jni::alias_ref<jni::JDouble> /* playerId */)>("setPlayerId");
+    method(_javaPart, playerId.has_value() ? jni::JDouble::valueOf(playerId.value()) : nullptr);
   }
-  std::optional<ResizeMode> JHybridNitroVideoViewSpec::getResizeMode() {
-    static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<JResizeMode>()>("getResizeMode");
+  bool JHybridNitroVideoViewSpec::getNativeControls() {
+    static const auto method = _javaPart->javaClassStatic()->getMethod<jboolean()>("getNativeControls");
     auto __result = method(_javaPart);
-    return __result != nullptr ? std::make_optional(__result->toCpp()) : std::nullopt;
+    return static_cast<bool>(__result);
   }
-  void JHybridNitroVideoViewSpec::setResizeMode(std::optional<ResizeMode> resizeMode) {
-    static const auto method = _javaPart->javaClassStatic()->getMethod<void(jni::alias_ref<JResizeMode> /* resizeMode */)>("setResizeMode");
-    method(_javaPart, resizeMode.has_value() ? JResizeMode::fromCpp(resizeMode.value()) : nullptr);
+  void JHybridNitroVideoViewSpec::setNativeControls(bool nativeControls) {
+    static const auto method = _javaPart->javaClassStatic()->getMethod<void(jboolean /* nativeControls */)>("setNativeControls");
+    method(_javaPart, nativeControls);
   }
-  std::optional<std::function<void(double /* duration */)>> JHybridNitroVideoViewSpec::getOnLoad() {
-    static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<JFunc_void_double::javaobject>()>("getOnLoad_cxx");
+  VideoContentFit JHybridNitroVideoViewSpec::getContentFit() {
+    static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<JVideoContentFit>()>("getContentFit");
     auto __result = method(_javaPart);
-    return __result != nullptr ? std::make_optional([&]() -> std::function<void(double /* duration */)> {
-      if (__result->isInstanceOf(JFunc_void_double_cxx::javaClassStatic())) [[likely]] {
-        auto downcast = jni::static_ref_cast<JFunc_void_double_cxx::javaobject>(__result);
-        return downcast->cthis()->getFunction();
-      } else {
-        auto __resultRef = jni::make_global(__result);
-        return JNICallable<JFunc_void_double, void(double)>(std::move(__resultRef));
-      }
-    }()) : std::nullopt;
+    return __result->toCpp();
   }
-  void JHybridNitroVideoViewSpec::setOnLoad(const std::optional<std::function<void(double /* duration */)>>& onLoad) {
-    static const auto method = _javaPart->javaClassStatic()->getMethod<void(jni::alias_ref<JFunc_void_double::javaobject> /* onLoad */)>("setOnLoad_cxx");
-    method(_javaPart, onLoad.has_value() ? JFunc_void_double_cxx::fromCpp(onLoad.value()) : nullptr);
+  void JHybridNitroVideoViewSpec::setContentFit(VideoContentFit contentFit) {
+    static const auto method = _javaPart->javaClassStatic()->getMethod<void(jni::alias_ref<JVideoContentFit> /* contentFit */)>("setContentFit");
+    method(_javaPart, JVideoContentFit::fromCpp(contentFit));
   }
-  std::optional<std::function<void(double /* currentTime */, double /* duration */)>> JHybridNitroVideoViewSpec::getOnProgress() {
-    static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<JFunc_void_double_double::javaobject>()>("getOnProgress_cxx");
+  bool JHybridNitroVideoViewSpec::getAllowsPictureInPicture() {
+    static const auto method = _javaPart->javaClassStatic()->getMethod<jboolean()>("getAllowsPictureInPicture");
     auto __result = method(_javaPart);
-    return __result != nullptr ? std::make_optional([&]() -> std::function<void(double /* currentTime */, double /* duration */)> {
-      if (__result->isInstanceOf(JFunc_void_double_double_cxx::javaClassStatic())) [[likely]] {
-        auto downcast = jni::static_ref_cast<JFunc_void_double_double_cxx::javaobject>(__result);
-        return downcast->cthis()->getFunction();
-      } else {
-        auto __resultRef = jni::make_global(__result);
-        return JNICallable<JFunc_void_double_double, void(double, double)>(std::move(__resultRef));
-      }
-    }()) : std::nullopt;
+    return static_cast<bool>(__result);
   }
-  void JHybridNitroVideoViewSpec::setOnProgress(const std::optional<std::function<void(double /* currentTime */, double /* duration */)>>& onProgress) {
-    static const auto method = _javaPart->javaClassStatic()->getMethod<void(jni::alias_ref<JFunc_void_double_double::javaobject> /* onProgress */)>("setOnProgress_cxx");
-    method(_javaPart, onProgress.has_value() ? JFunc_void_double_double_cxx::fromCpp(onProgress.value()) : nullptr);
+  void JHybridNitroVideoViewSpec::setAllowsPictureInPicture(bool allowsPictureInPicture) {
+    static const auto method = _javaPart->javaClassStatic()->getMethod<void(jboolean /* allowsPictureInPicture */)>("setAllowsPictureInPicture");
+    method(_javaPart, allowsPictureInPicture);
   }
-  std::optional<std::function<void()>> JHybridNitroVideoViewSpec::getOnEnd() {
-    static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<JFunc_void::javaobject>()>("getOnEnd_cxx");
+  bool JHybridNitroVideoViewSpec::getStartsPictureInPictureAutomatically() {
+    static const auto method = _javaPart->javaClassStatic()->getMethod<jboolean()>("getStartsPictureInPictureAutomatically");
+    auto __result = method(_javaPart);
+    return static_cast<bool>(__result);
+  }
+  void JHybridNitroVideoViewSpec::setStartsPictureInPictureAutomatically(bool startsPictureInPictureAutomatically) {
+    static const auto method = _javaPart->javaClassStatic()->getMethod<void(jboolean /* startsPictureInPictureAutomatically */)>("setStartsPictureInPictureAutomatically");
+    method(_javaPart, startsPictureInPictureAutomatically);
+  }
+  bool JHybridNitroVideoViewSpec::getRequiresLinearPlayback() {
+    static const auto method = _javaPart->javaClassStatic()->getMethod<jboolean()>("getRequiresLinearPlayback");
+    auto __result = method(_javaPart);
+    return static_cast<bool>(__result);
+  }
+  void JHybridNitroVideoViewSpec::setRequiresLinearPlayback(bool requiresLinearPlayback) {
+    static const auto method = _javaPart->javaClassStatic()->getMethod<void(jboolean /* requiresLinearPlayback */)>("setRequiresLinearPlayback");
+    method(_javaPart, requiresLinearPlayback);
+  }
+  bool JHybridNitroVideoViewSpec::getUseExoShutter() {
+    static const auto method = _javaPart->javaClassStatic()->getMethod<jboolean()>("getUseExoShutter");
+    auto __result = method(_javaPart);
+    return static_cast<bool>(__result);
+  }
+  void JHybridNitroVideoViewSpec::setUseExoShutter(bool useExoShutter) {
+    static const auto method = _javaPart->javaClassStatic()->getMethod<void(jboolean /* useExoShutter */)>("setUseExoShutter");
+    method(_javaPart, useExoShutter);
+  }
+  bool JHybridNitroVideoViewSpec::getControllerAutoShow() {
+    static const auto method = _javaPart->javaClassStatic()->getMethod<jboolean()>("getControllerAutoShow");
+    auto __result = method(_javaPart);
+    return static_cast<bool>(__result);
+  }
+  void JHybridNitroVideoViewSpec::setControllerAutoShow(bool controllerAutoShow) {
+    static const auto method = _javaPart->javaClassStatic()->getMethod<void(jboolean /* controllerAutoShow */)>("setControllerAutoShow");
+    method(_javaPart, controllerAutoShow);
+  }
+  std::optional<std::function<void()>> JHybridNitroVideoViewSpec::getOnPictureInPictureStart() {
+    static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<JFunc_void::javaobject>()>("getOnPictureInPictureStart_cxx");
     auto __result = method(_javaPart);
     return __result != nullptr ? std::make_optional([&]() -> std::function<void()> {
       if (__result->isInstanceOf(JFunc_void_cxx::javaClassStatic())) [[likely]] {
@@ -152,40 +135,139 @@ namespace margelo::nitro::nitrovideo {
       }
     }()) : std::nullopt;
   }
-  void JHybridNitroVideoViewSpec::setOnEnd(const std::optional<std::function<void()>>& onEnd) {
-    static const auto method = _javaPart->javaClassStatic()->getMethod<void(jni::alias_ref<JFunc_void::javaobject> /* onEnd */)>("setOnEnd_cxx");
-    method(_javaPart, onEnd.has_value() ? JFunc_void_cxx::fromCpp(onEnd.value()) : nullptr);
+  void JHybridNitroVideoViewSpec::setOnPictureInPictureStart(const std::optional<std::function<void()>>& onPictureInPictureStart) {
+    static const auto method = _javaPart->javaClassStatic()->getMethod<void(jni::alias_ref<JFunc_void::javaobject> /* onPictureInPictureStart */)>("setOnPictureInPictureStart_cxx");
+    method(_javaPart, onPictureInPictureStart.has_value() ? JFunc_void_cxx::fromCpp(onPictureInPictureStart.value()) : nullptr);
   }
-  std::optional<std::function<void(const std::string& /* error */)>> JHybridNitroVideoViewSpec::getOnError() {
-    static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<JFunc_void_std__string::javaobject>()>("getOnError_cxx");
+  std::optional<std::function<void()>> JHybridNitroVideoViewSpec::getOnPictureInPictureStop() {
+    static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<JFunc_void::javaobject>()>("getOnPictureInPictureStop_cxx");
     auto __result = method(_javaPart);
-    return __result != nullptr ? std::make_optional([&]() -> std::function<void(const std::string& /* error */)> {
-      if (__result->isInstanceOf(JFunc_void_std__string_cxx::javaClassStatic())) [[likely]] {
-        auto downcast = jni::static_ref_cast<JFunc_void_std__string_cxx::javaobject>(__result);
+    return __result != nullptr ? std::make_optional([&]() -> std::function<void()> {
+      if (__result->isInstanceOf(JFunc_void_cxx::javaClassStatic())) [[likely]] {
+        auto downcast = jni::static_ref_cast<JFunc_void_cxx::javaobject>(__result);
         return downcast->cthis()->getFunction();
       } else {
         auto __resultRef = jni::make_global(__result);
-        return JNICallable<JFunc_void_std__string, void(std::string)>(std::move(__resultRef));
+        return JNICallable<JFunc_void, void()>(std::move(__resultRef));
       }
     }()) : std::nullopt;
   }
-  void JHybridNitroVideoViewSpec::setOnError(const std::optional<std::function<void(const std::string& /* error */)>>& onError) {
-    static const auto method = _javaPart->javaClassStatic()->getMethod<void(jni::alias_ref<JFunc_void_std__string::javaobject> /* onError */)>("setOnError_cxx");
-    method(_javaPart, onError.has_value() ? JFunc_void_std__string_cxx::fromCpp(onError.value()) : nullptr);
+  void JHybridNitroVideoViewSpec::setOnPictureInPictureStop(const std::optional<std::function<void()>>& onPictureInPictureStop) {
+    static const auto method = _javaPart->javaClassStatic()->getMethod<void(jni::alias_ref<JFunc_void::javaobject> /* onPictureInPictureStop */)>("setOnPictureInPictureStop_cxx");
+    method(_javaPart, onPictureInPictureStop.has_value() ? JFunc_void_cxx::fromCpp(onPictureInPictureStop.value()) : nullptr);
+  }
+  std::optional<std::function<void()>> JHybridNitroVideoViewSpec::getOnFullscreenEnter() {
+    static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<JFunc_void::javaobject>()>("getOnFullscreenEnter_cxx");
+    auto __result = method(_javaPart);
+    return __result != nullptr ? std::make_optional([&]() -> std::function<void()> {
+      if (__result->isInstanceOf(JFunc_void_cxx::javaClassStatic())) [[likely]] {
+        auto downcast = jni::static_ref_cast<JFunc_void_cxx::javaobject>(__result);
+        return downcast->cthis()->getFunction();
+      } else {
+        auto __resultRef = jni::make_global(__result);
+        return JNICallable<JFunc_void, void()>(std::move(__resultRef));
+      }
+    }()) : std::nullopt;
+  }
+  void JHybridNitroVideoViewSpec::setOnFullscreenEnter(const std::optional<std::function<void()>>& onFullscreenEnter) {
+    static const auto method = _javaPart->javaClassStatic()->getMethod<void(jni::alias_ref<JFunc_void::javaobject> /* onFullscreenEnter */)>("setOnFullscreenEnter_cxx");
+    method(_javaPart, onFullscreenEnter.has_value() ? JFunc_void_cxx::fromCpp(onFullscreenEnter.value()) : nullptr);
+  }
+  std::optional<std::function<void()>> JHybridNitroVideoViewSpec::getOnFullscreenExit() {
+    static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<JFunc_void::javaobject>()>("getOnFullscreenExit_cxx");
+    auto __result = method(_javaPart);
+    return __result != nullptr ? std::make_optional([&]() -> std::function<void()> {
+      if (__result->isInstanceOf(JFunc_void_cxx::javaClassStatic())) [[likely]] {
+        auto downcast = jni::static_ref_cast<JFunc_void_cxx::javaobject>(__result);
+        return downcast->cthis()->getFunction();
+      } else {
+        auto __resultRef = jni::make_global(__result);
+        return JNICallable<JFunc_void, void()>(std::move(__resultRef));
+      }
+    }()) : std::nullopt;
+  }
+  void JHybridNitroVideoViewSpec::setOnFullscreenExit(const std::optional<std::function<void()>>& onFullscreenExit) {
+    static const auto method = _javaPart->javaClassStatic()->getMethod<void(jni::alias_ref<JFunc_void::javaobject> /* onFullscreenExit */)>("setOnFullscreenExit_cxx");
+    method(_javaPart, onFullscreenExit.has_value() ? JFunc_void_cxx::fromCpp(onFullscreenExit.value()) : nullptr);
+  }
+  std::optional<std::function<void()>> JHybridNitroVideoViewSpec::getOnFirstFrameRender() {
+    static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<JFunc_void::javaobject>()>("getOnFirstFrameRender_cxx");
+    auto __result = method(_javaPart);
+    return __result != nullptr ? std::make_optional([&]() -> std::function<void()> {
+      if (__result->isInstanceOf(JFunc_void_cxx::javaClassStatic())) [[likely]] {
+        auto downcast = jni::static_ref_cast<JFunc_void_cxx::javaobject>(__result);
+        return downcast->cthis()->getFunction();
+      } else {
+        auto __resultRef = jni::make_global(__result);
+        return JNICallable<JFunc_void, void()>(std::move(__resultRef));
+      }
+    }()) : std::nullopt;
+  }
+  void JHybridNitroVideoViewSpec::setOnFirstFrameRender(const std::optional<std::function<void()>>& onFirstFrameRender) {
+    static const auto method = _javaPart->javaClassStatic()->getMethod<void(jni::alias_ref<JFunc_void::javaobject> /* onFirstFrameRender */)>("setOnFirstFrameRender_cxx");
+    method(_javaPart, onFirstFrameRender.has_value() ? JFunc_void_cxx::fromCpp(onFirstFrameRender.value()) : nullptr);
   }
 
   // Methods
-  void JHybridNitroVideoViewSpec::play() {
-    static const auto method = _javaPart->javaClassStatic()->getMethod<void()>("play");
-    method(_javaPart);
+  std::shared_ptr<Promise<void>> JHybridNitroVideoViewSpec::enterFullscreen() {
+    static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>()>("enterFullscreen");
+    auto __result = method(_javaPart);
+    return [&]() {
+      auto __promise = Promise<void>::create();
+      __result->cthis()->addOnResolvedListener([=](const jni::alias_ref<jni::JObject>& /* unit */) {
+        __promise->resolve();
+      });
+      __result->cthis()->addOnRejectedListener([=](const jni::alias_ref<jni::JThrowable>& __throwable) {
+        jni::JniException __jniError(__throwable);
+        __promise->reject(std::make_exception_ptr(__jniError));
+      });
+      return __promise;
+    }();
   }
-  void JHybridNitroVideoViewSpec::pause() {
-    static const auto method = _javaPart->javaClassStatic()->getMethod<void()>("pause");
-    method(_javaPart);
+  std::shared_ptr<Promise<void>> JHybridNitroVideoViewSpec::exitFullscreen() {
+    static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>()>("exitFullscreen");
+    auto __result = method(_javaPart);
+    return [&]() {
+      auto __promise = Promise<void>::create();
+      __result->cthis()->addOnResolvedListener([=](const jni::alias_ref<jni::JObject>& /* unit */) {
+        __promise->resolve();
+      });
+      __result->cthis()->addOnRejectedListener([=](const jni::alias_ref<jni::JThrowable>& __throwable) {
+        jni::JniException __jniError(__throwable);
+        __promise->reject(std::make_exception_ptr(__jniError));
+      });
+      return __promise;
+    }();
   }
-  void JHybridNitroVideoViewSpec::seek(double position) {
-    static const auto method = _javaPart->javaClassStatic()->getMethod<void(double /* position */)>("seek");
-    method(_javaPart, position);
+  std::shared_ptr<Promise<void>> JHybridNitroVideoViewSpec::startPictureInPicture() {
+    static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>()>("startPictureInPicture");
+    auto __result = method(_javaPart);
+    return [&]() {
+      auto __promise = Promise<void>::create();
+      __result->cthis()->addOnResolvedListener([=](const jni::alias_ref<jni::JObject>& /* unit */) {
+        __promise->resolve();
+      });
+      __result->cthis()->addOnRejectedListener([=](const jni::alias_ref<jni::JThrowable>& __throwable) {
+        jni::JniException __jniError(__throwable);
+        __promise->reject(std::make_exception_ptr(__jniError));
+      });
+      return __promise;
+    }();
+  }
+  std::shared_ptr<Promise<void>> JHybridNitroVideoViewSpec::stopPictureInPicture() {
+    static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>()>("stopPictureInPicture");
+    auto __result = method(_javaPart);
+    return [&]() {
+      auto __promise = Promise<void>::create();
+      __result->cthis()->addOnResolvedListener([=](const jni::alias_ref<jni::JObject>& /* unit */) {
+        __promise->resolve();
+      });
+      __result->cthis()->addOnRejectedListener([=](const jni::alias_ref<jni::JThrowable>& __throwable) {
+        jni::JniException __jniError(__throwable);
+        __promise->reject(std::make_exception_ptr(__jniError));
+      });
+      return __promise;
+    }();
   }
 
 } // namespace margelo::nitro::nitrovideo

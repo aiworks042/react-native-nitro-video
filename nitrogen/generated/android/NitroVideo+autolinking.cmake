@@ -33,11 +33,13 @@ target_sources(
   # Autolinking Setup
   ../nitrogen/generated/android/NitroVideoOnLoad.cpp
   # Shared Nitrogen C++ sources
+  ../nitrogen/generated/shared/c++/HybridVideoModuleSpec.cpp
   ../nitrogen/generated/shared/c++/HybridNitroVideoViewSpec.cpp
-  ../nitrogen/generated/shared/c++/views/HybridNitroVideoViewComponent.cpp
+  ../nitrogen/generated/shared/c++/HybridVideoPlayerSpec.cpp
   # Android-specific Nitrogen C++ sources
+  ../nitrogen/generated/android/c++/JHybridVideoModuleSpec.cpp
   ../nitrogen/generated/android/c++/JHybridNitroVideoViewSpec.cpp
-  ../nitrogen/generated/android/c++/views/JHybridNitroVideoViewStateUpdater.cpp
+  ../nitrogen/generated/android/c++/JHybridVideoPlayerSpec.cpp
 )
 
 # From node_modules/react-native/ReactAndroid/cmake-utils/folly-flags.cmake

@@ -50,32 +50,39 @@ namespace margelo::nitro::nitrovideo {
 
   public:
     // Properties
-    std::string getSource() override;
-    void setSource(const std::string& source) override;
-    std::optional<bool> getPaused() override;
-    void setPaused(std::optional<bool> paused) override;
-    std::optional<bool> getMuted() override;
-    void setMuted(std::optional<bool> muted) override;
-    std::optional<bool> getRepeat() override;
-    void setRepeat(std::optional<bool> repeat) override;
-    std::optional<double> getVolume() override;
-    void setVolume(std::optional<double> volume) override;
-    std::optional<ResizeMode> getResizeMode() override;
-    void setResizeMode(std::optional<ResizeMode> resizeMode) override;
-    std::optional<std::function<void(double /* duration */)>> getOnLoad() override;
-    void setOnLoad(const std::optional<std::function<void(double /* duration */)>>& onLoad) override;
-    std::optional<std::function<void(double /* currentTime */, double /* duration */)>> getOnProgress() override;
-    void setOnProgress(const std::optional<std::function<void(double /* currentTime */, double /* duration */)>>& onProgress) override;
-    std::optional<std::function<void()>> getOnEnd() override;
-    void setOnEnd(const std::optional<std::function<void()>>& onEnd) override;
-    std::optional<std::function<void(const std::string& /* error */)>> getOnError() override;
-    void setOnError(const std::optional<std::function<void(const std::string& /* error */)>>& onError) override;
+    std::optional<double> getPlayerId() override;
+    void setPlayerId(std::optional<double> playerId) override;
+    bool getNativeControls() override;
+    void setNativeControls(bool nativeControls) override;
+    VideoContentFit getContentFit() override;
+    void setContentFit(VideoContentFit contentFit) override;
+    bool getAllowsPictureInPicture() override;
+    void setAllowsPictureInPicture(bool allowsPictureInPicture) override;
+    bool getStartsPictureInPictureAutomatically() override;
+    void setStartsPictureInPictureAutomatically(bool startsPictureInPictureAutomatically) override;
+    bool getRequiresLinearPlayback() override;
+    void setRequiresLinearPlayback(bool requiresLinearPlayback) override;
+    bool getUseExoShutter() override;
+    void setUseExoShutter(bool useExoShutter) override;
+    bool getControllerAutoShow() override;
+    void setControllerAutoShow(bool controllerAutoShow) override;
+    std::optional<std::function<void()>> getOnPictureInPictureStart() override;
+    void setOnPictureInPictureStart(const std::optional<std::function<void()>>& onPictureInPictureStart) override;
+    std::optional<std::function<void()>> getOnPictureInPictureStop() override;
+    void setOnPictureInPictureStop(const std::optional<std::function<void()>>& onPictureInPictureStop) override;
+    std::optional<std::function<void()>> getOnFullscreenEnter() override;
+    void setOnFullscreenEnter(const std::optional<std::function<void()>>& onFullscreenEnter) override;
+    std::optional<std::function<void()>> getOnFullscreenExit() override;
+    void setOnFullscreenExit(const std::optional<std::function<void()>>& onFullscreenExit) override;
+    std::optional<std::function<void()>> getOnFirstFrameRender() override;
+    void setOnFirstFrameRender(const std::optional<std::function<void()>>& onFirstFrameRender) override;
 
   public:
     // Methods
-    void play() override;
-    void pause() override;
-    void seek(double position) override;
+    std::shared_ptr<Promise<void>> enterFullscreen() override;
+    std::shared_ptr<Promise<void>> exitFullscreen() override;
+    std::shared_ptr<Promise<void>> startPictureInPicture() override;
+    std::shared_ptr<Promise<void>> stopPictureInPicture() override;
 
   private:
     jni::global_ref<JHybridNitroVideoViewSpec::JavaPart> _javaPart;

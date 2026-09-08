@@ -8,23 +8,27 @@
 import NitroModules
 
 /// See ``HybridNitroVideoViewSpec``
-public protocol HybridNitroVideoViewSpec_protocol: HybridObject, HybridView {
+public protocol HybridNitroVideoViewSpec_protocol: HybridObject {
   // Properties
-  var source: String { get set }
-  var paused: Bool? { get set }
-  var muted: Bool? { get set }
-  var repeat: Bool? { get set }
-  var volume: Double? { get set }
-  var resizeMode: ResizeMode? { get set }
-  var onLoad: ((_ duration: Double) -> Void)? { get set }
-  var onProgress: ((_ currentTime: Double, _ duration: Double) -> Void)? { get set }
-  var onEnd: (() -> Void)? { get set }
-  var onError: ((_ error: String) -> Void)? { get set }
+  var playerId: Double? { get set }
+  var nativeControls: Bool { get set }
+  var contentFit: VideoContentFit { get set }
+  var allowsPictureInPicture: Bool { get set }
+  var startsPictureInPictureAutomatically: Bool { get set }
+  var requiresLinearPlayback: Bool { get set }
+  var useExoShutter: Bool { get set }
+  var controllerAutoShow: Bool { get set }
+  var onPictureInPictureStart: (() -> Void)? { get set }
+  var onPictureInPictureStop: (() -> Void)? { get set }
+  var onFullscreenEnter: (() -> Void)? { get set }
+  var onFullscreenExit: (() -> Void)? { get set }
+  var onFirstFrameRender: (() -> Void)? { get set }
 
   // Methods
-  func play() throws -> Void
-  func pause() throws -> Void
-  func seek(position: Double) throws -> Void
+  func enterFullscreen() throws -> Promise<Void>
+  func exitFullscreen() throws -> Promise<Void>
+  func startPictureInPicture() throws -> Promise<Void>
+  func stopPictureInPicture() throws -> Promise<Void>
 }
 
 public extension HybridNitroVideoViewSpec_protocol {
