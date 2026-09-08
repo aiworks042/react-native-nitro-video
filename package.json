@@ -42,7 +42,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/aiworks042/react-native-nitro-video.git"
+    "url": "git+https://github.com/aiworks042/react-native-nitro-video.git"
   },
   "author": "Anis Rangrez <ANISALADINRANGREZ@GMAIL.COM>",
   "license": "MIT",
