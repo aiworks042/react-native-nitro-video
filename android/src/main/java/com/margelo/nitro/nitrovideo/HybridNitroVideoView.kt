@@ -1,4 +1,4 @@
-﻿package com.margelo.nitro.nitrovideo
+package com.margelo.nitro.nitrovideo
 
 import android.net.Uri
 import android.os.Handler
@@ -41,9 +41,11 @@ class HybridNitroVideoView(
   private val playerView = PlayerView(context).apply {
     useController = false
     resizeMode = AspectRatioFrameLayout.RESIZE_MODE_FIT
+    setShutterBackgroundColor(android.graphics.Color.TRANSPARENT)
     layoutParams = FrameLayout.LayoutParams(
       ViewGroup.LayoutParams.MATCH_PARENT,
-      ViewGroup.LayoutParams.MATCH_PARENT
+      ViewGroup.LayoutParams.MATCH_PARENT,
+      android.view.Gravity.CENTER
     )
   }
 
@@ -63,11 +65,13 @@ class HybridNitroVideoView(
       post(measureAndLayout)
     }
   }.apply {
+    setBackgroundColor(android.graphics.Color.BLACK)
     addView(
       playerView,
       FrameLayout.LayoutParams(
         ViewGroup.LayoutParams.MATCH_PARENT,
-        ViewGroup.LayoutParams.MATCH_PARENT
+        ViewGroup.LayoutParams.MATCH_PARENT,
+        android.view.Gravity.CENTER
       )
     )
   }
