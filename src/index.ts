@@ -10,6 +10,7 @@
 
 // ─── Core Components ─────────────────────────────────────────────────────────
 export { VideoView, isPictureInPictureSupported } from './VideoView'
+export { VideoPlayerView, type VideoPlayerViewProps, type VideoPlayerViewRef } from './VideoPlayerView'
 
 // ─── Player class & factory ──────────────────────────────────────────────────
 export { VideoPlayer, createVideoPlayer } from './VideoPlayer'
