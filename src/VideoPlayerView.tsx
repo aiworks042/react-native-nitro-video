@@ -44,6 +44,7 @@ export const VideoPlayerView = forwardRef<VideoPlayerViewRef, VideoPlayerViewPro
       nativeControls = false,
       onLoad,
       onProgress,
+      onEnd,
       onError,
       testID,
     },
@@ -82,6 +83,10 @@ export const VideoPlayerView = forwardRef<VideoPlayerViewRef, VideoPlayerViewPro
 
     useEventListener(player, 'timeUpdate', (event) => {
       onProgress?.(event?.currentTime ?? player.currentTime, player.duration)
+    })
+
+    useEventListener(player, 'playToEnd', () => {
+      onEnd?.()
     })
 
     useEventListener(player, 'statusChange', (event) => {
