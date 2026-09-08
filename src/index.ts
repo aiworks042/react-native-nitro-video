@@ -1,3 +1,6 @@
+﻿// Raw host component
+export { NativeVideoView } from './views/NativeVideoView'
+
 // Expo-style API
 export { VideoView } from './views/VideoView'
 export type { VideoViewProps, VideoViewRef, VideoContentFit } from './views/VideoView'
@@ -22,8 +25,8 @@ export type {
 
 // Classic declarative component API
 export {
-  VideoPlayer as VideoPlayerView,
-  NativeVideoView,
+  VideoPlayerView,
+  VideoPlayer as VideoPlayerComponent,
 } from './views/VideoPlayer'
 export type { VideoPlayerProps, VideoPlayerRef } from './views/VideoPlayer'
 

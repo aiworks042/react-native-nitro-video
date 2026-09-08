@@ -1,24 +1,17 @@
-import React, { useMemo } from 'react'
+﻿import React, { useMemo } from 'react'
 import type { StyleProp, ViewStyle } from 'react-native'
 import {
-  getHostComponent,
   callback,
   type HybridRef,
 } from 'react-native-nitro-modules'
-import NitroVideoViewConfig from '../../nitrogen/generated/shared/json/NitroVideoViewConfig.json'
+import { NativeVideoView } from './NativeVideoView'
 import type {
   NitroVideoViewProps,
   NitroVideoViewMethods,
 } from '../specs/NitroVideoView.nitro'
 import type { ResizeMode } from '../specs/ResizeMode'
 
-/**
- * Raw host component registered with React Native Fabric renderer.
- */
-export const NativeVideoView = getHostComponent<
-  NitroVideoViewProps,
-  NitroVideoViewMethods
->('NitroVideoView', () => NitroVideoViewConfig)
+export { NativeVideoView } from './NativeVideoView'
 
 export type VideoPlayerRef = HybridRef<
   NitroVideoViewProps,
@@ -31,6 +24,7 @@ export interface VideoPlayerProps
     'onLoad' | 'onProgress' | 'onEnd' | 'onError'
   > {
   style?: StyleProp<ViewStyle>
+  testID?: string
   resizeMode?: ResizeMode
   onLoad?: (duration: number) => void
   onProgress?: (currentTime: number, duration: number) => void
@@ -44,7 +38,7 @@ export interface VideoPlayerProps
  * Automatically wraps event handlers with `callback(...)` to ensure
  * zero-copy C++ Fabric bridge execution without boolean conversion loss.
  */
-export const VideoPlayer = React.memo(function VideoPlayer({
+export const VideoPlayerView = React.memo(function VideoPlayerView({
   onLoad,
   onProgress,
   onEnd,
@@ -84,3 +78,5 @@ export const VideoPlayer = React.memo(function VideoPlayer({
     />
   )
 })
+
+export const VideoPlayer = VideoPlayerView

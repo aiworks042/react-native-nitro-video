@@ -1,4 +1,4 @@
-import React, {
+﻿import React, {
   useCallback,
   useMemo,
   forwardRef,
@@ -7,22 +7,16 @@ import React, {
 } from 'react'
 import type { StyleProp, ViewStyle } from 'react-native'
 import {
-  getHostComponent,
   callback,
   type HybridRef,
 } from 'react-native-nitro-modules'
-import NitroVideoViewConfig from '../../nitrogen/generated/shared/json/NitroVideoViewConfig.json'
+import { NativeVideoView } from './NativeVideoView'
 import type {
   NitroVideoViewProps,
   NitroVideoViewMethods,
 } from '../specs/NitroVideoView.nitro'
 import type { ResizeMode } from '../specs/ResizeMode'
 import type { VideoPlayer } from '../hooks/useVideoPlayer'
-
-const NativeHostView = getHostComponent<
-  NitroVideoViewProps,
-  NitroVideoViewMethods
->('NitroVideoView', () => NitroVideoViewConfig)
 
 export type VideoContentFit = 'contain' | 'cover' | 'fill'
 
@@ -123,7 +117,7 @@ export const VideoView = React.memo(
     }
 
     return (
-      <NativeHostView
+      <NativeVideoView
         style={style}
         source={player.source}
         paused={!player.playing}
