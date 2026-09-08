@@ -205,7 +205,9 @@ class HybridVideoPlayer : HybridVideoPlayerSpec(), IntervalUpdateEmitter {
             if (value) {
                 startPlaybackService()
             }
-            serviceConnection.playbackServiceBinder?.service?.setShowNotification(value, exoPlayer)
+            _exoPlayer?.let { exo ->
+                serviceConnection.playbackServiceBinder?.service?.setShowNotification(value, exo)
+            }
         }
 
     override var staysActiveInBackground: Boolean = false
@@ -573,7 +575,9 @@ class HybridVideoPlayer : HybridVideoPlayerSpec(), IntervalUpdateEmitter {
                 context.unbindService(serviceConnection)
             } catch (_: Exception) {}
         }
-        serviceConnection.playbackServiceBinder?.service?.unregisterPlayer(exoPlayer)
+        _exoPlayer?.let { exo ->
+            serviceConnection.playbackServiceBinder?.service?.unregisterPlayer(exo)
+        }
         mediaSession?.release()
 
         mainHandler.post {
